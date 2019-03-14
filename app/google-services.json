@@ -39,6 +39,14 @@
           }
         },
         {
+          "client_id": "480151381608-d81mhg3hlrnfqnldk2g0nj6vlph55dmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.workclout",
+            "certificate_hash": "86be6c6dd23590923e13e53847518de3bb9e0af4"
+          }
+        },
+        {
           "client_id": "480151381608-jfn16nvva404i1mihi19v2gdvu0ms3n5.apps.googleusercontent.com",
           "client_type": 3
         }
