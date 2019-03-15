@@ -28,7 +28,7 @@
         android:text="Name" />
 
     <Button
-        android:id="@+id/RegisterID22"
+        android:id="@+id/RegisterID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register" />
@@ -38,5 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />
+
+    <CheckBox
+        android:id="@+id/checkID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckBox" />
 
 </LinearLayout>

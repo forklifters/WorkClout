@@ -31,7 +31,7 @@ public class Registration extends AppCompatActivity {
         userName2=(EditText)findViewById(R.id.UserNameID2);
         passWord2=(EditText)findViewById(R.id.PassWordID2);
         //rePassWord=(EditText)findViewById(R.id.RePassWordID);
-        register2=(Button)findViewById(R.id.RegisterID22);
+        register2=(Button)findViewById(R.id.RegisterID2);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
