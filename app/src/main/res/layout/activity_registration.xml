@@ -31,13 +31,13 @@
         android:ems="10"
         android:inputType="textWebPassword"
         android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterID22"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterID2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
-        android:id="@+id/RegisterID22"
+        android:id="@+id/RegisterID2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
