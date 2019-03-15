@@ -51,13 +51,13 @@ public class Registration extends AppCompatActivity {
 
                             Intent homepage = new Intent(Registration.this, HomePage.class);
                             startActivity(homepage);
-                            Toast.makeText(Registration.this, "You're Registerd", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Registration.this, "You're registered", Toast.LENGTH_SHORT).show();
 
                         }
                         else
                         {
                             FirebaseAuthException e = (FirebaseAuthException )task.getException();
-                            Toast.makeText(Registration.this, "You're  not Registerd " +e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Registration.this, "You're not registered " +e.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
 
