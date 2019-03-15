@@ -1,6 +1,5 @@
 package com.example.workclout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,14 +24,15 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         userName=(EditText)findViewById(R.id.UserNameID);
         passWord=(EditText)findViewById(R.id.PassWordID);
-        register=(Button)findViewById(R.id.RegisterID);
+        register=(Button)findViewById(R.id.RegisterID22);
         login=(Button)findViewById(R.id.LogID);
 
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent registration = new Intent(LoginActivity.this, Registration.class);
+                startActivity(registration);
             }
         });
 
