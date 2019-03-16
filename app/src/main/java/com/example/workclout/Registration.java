@@ -41,38 +41,8 @@ public class Registration extends AppCompatActivity {
             public void onClick(View v) {
                 userNameInput2 = userName2.getText().toString().trim();// takes input
                 passWordInput2 = passWord2.getText().toString().trim();// takes input
-                boolean valid = true;
 
-                if (passWordInput2.length() < 8) {
-                    valid = false;
-                    Toast.makeText(Registration.this, "Password must be 8 characters or more", Toast.LENGTH_SHORT).show();
-                }
-
-                boolean containsCapital = false;
-                for (int i = 0; i < passWordInput2.length(); i++) {
-                    if (Character.isUpperCase(passWordInput2.charAt(i))) {
-                        containsCapital = true;
-                    }
-                }
-
-                if (!containsCapital) {
-                    valid = false;
-                    Toast.makeText(Registration.this, "Password must contain a capital letter", Toast.LENGTH_SHORT).show();
-                }
-
-                boolean containsInt = false;
-                for (int i = 0; i < passWordInput2.length(); i++) {
-                    if (passWordInput2.substring(i, i + 1).matches("[0-9]")) {
-                        containsInt = true;
-                    }
-                }
-
-                if (!containsInt) {
-                    valid = false;
-                    Toast.makeText(Registration.this, "Password must contain a number", Toast.LENGTH_SHORT).show();
-                }
-
-                if (valid) {
+                if (isValidPassword(passWordInput2)) {
                     firebaseAuth.createUserWithEmailAndPassword(userNameInput2, passWordInput2)
                             .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -105,5 +75,45 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * @Param Takes in a string to be used as the password for registration
+     * @Return Returns a boolean that is true if the password can be registered
+     * Password must be 8 characters or more, must contain a number, and must contain a capital letter
+     */
+    private boolean isValidPassword(String password) {
+        boolean valid = true;
+
+        if (password.length() < 8) {
+            valid = false;
+            Toast.makeText(Registration.this, "Password must be 8 characters or more", Toast.LENGTH_SHORT).show();
+        }
+
+        boolean containsCapital = false;
+        for (int i = 0; i < password.length(); i++) {
+            if (Character.isUpperCase(password.charAt(i))) {
+                containsCapital = true;
+            }
+        }
+
+        if (!containsCapital) {
+            valid = false;
+            Toast.makeText(Registration.this, "Password must contain a capital letter", Toast.LENGTH_SHORT).show();
+        }
+
+        boolean containsInt = false;
+        for (int i = 0; i < password.length(); i++) {
+            if (password.substring(i, i + 1).matches("[0-9]")) {
+                containsInt = true;
+            }
+        }
+
+        if (!containsInt) {
+            valid = false;
+            Toast.makeText(Registration.this, "Password must contain a number", Toast.LENGTH_SHORT).show();
+        }
+
+        return valid;
     }
 }
