@@ -1,6 +1,7 @@
 package com.example.workclout;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Registration extends AppCompatActivity {
@@ -23,6 +27,7 @@ public class Registration extends AppCompatActivity {
     private String userNameInput2, passWordInput2, rePassWordInput;
     private Button register2;
     private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class Registration extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+
+
         register2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,10 +54,17 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                           // firebaseAuth.signInWithEmailAndPassword(userNameInput2,passWordInput2);
+                            //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser("Athletes");
+
+                           // DatabaseReference mdatabase =FirebaseDatabase.getInstance().getReference().child("Athletes");
+                           // DatabaseReference cdatabase = mdatabase.child(firebaseAuth.getCurrentUser().getUid());
+                                    //FirebaseDatabase.getInstance().getReference("workclout-2aebd");
 
 
-                            Intent homepage = new Intent(Registration.this, HomePage.class);
-                            startActivity(homepage);
+
+                            Intent setUpProfile = new Intent(Registration.this, SetupProfile.class);
+                            startActivity(setUpProfile);
                             Toast.makeText(Registration.this, "You're Registerd", Toast.LENGTH_SHORT).show();
 
                         }
@@ -64,6 +78,7 @@ public class Registration extends AppCompatActivity {
 
                     }
                 });
+
 
             }
         });
