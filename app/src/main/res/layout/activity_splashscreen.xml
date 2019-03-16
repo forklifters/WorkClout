@@ -112,6 +112,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="15sp"
                             android:textColor="@color/white"
+                            android:inputType="textWebPassword"
                             android:fontFamily="sans-serif-light"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
