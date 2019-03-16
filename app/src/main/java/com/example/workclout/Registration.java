@@ -41,6 +41,7 @@ public class Registration extends AppCompatActivity {
             public void onClick(View v) {
                 userNameInput2 = userName2.getText().toString().trim();// takes input
                 passWordInput2 = passWord2.getText().toString().trim();// takes input
+
                 if (isValidPassword(passWordInput2)) {
                     firebaseAuth.createUserWithEmailAndPassword(userNameInput2, passWordInput2)
                             .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
@@ -77,11 +78,11 @@ public class Registration extends AppCompatActivity {
     }
 
     /**
-     * @Param String password is a string that is used for registration
-     * @Return returns true if the password is valid and false if it is false
-     * Password must contain a capital letter, a number, and be at least 8 characters
+     * @Param Takes in a string to be used as the password for registration
+     * @Return Returns a boolean that is true if the password can be registered
+     * Password must be 8 characters or more, must contain a number, and must contain a capital letter
      */
-    private boolean isValidPassword(String password){
+    private boolean isValidPassword(String password) {
         boolean valid = true;
 
         if (password.length() < 8) {
@@ -115,5 +116,4 @@ public class Registration extends AppCompatActivity {
 
         return valid;
     }
-
 }
