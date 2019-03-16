@@ -11,57 +11,62 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Registration extends AppCompatActivity {
-   // private FirebaseAuthException firebase;
     private EditText userName2, passWord2, rePassWord;
     private String userNameInput2, passWordInput2, rePassWordInput;
     private Button register2;
-    private FirebaseAuth firebaseAuth;
+
+    private FirebaseFirestore mFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        userName2=(EditText)findViewById(R.id.UserNameID2);
-        passWord2=(EditText)findViewById(R.id.PassWordID2);
-        //rePassWord=(EditText)findViewById(R.id.RePassWordID);
-        register2=(Button)findViewById(R.id.RegisterID2);
+        userName2=findViewById(R.id.UserNameID2);
+        passWord2=findViewById(R.id.PassWordID2);
+        register2=findViewById(R.id.RegisterID2);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
 
 
         register2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userNameInput2=userName2.getText().toString().trim();// takes input
-                passWordInput2=passWord2.getText().toString().trim();// takes input
+                userNameInput2 = userName2.getText().toString();// takes input
+                passWordInput2 = passWord2.getText().toString();// takes input
 
-                firebaseAuth.createUserWithEmailAndPassword(userNameInput2,passWordInput2)
-                        .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
+                Map<String, String> userMap = new HashMap<>();
+
+                userMap.put("username", userNameInput2);
+                userMap.put("password", passWordInput2);
+
+                mFirestore.collection("users").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                    public void onSuccess(DocumentReference documentReference) {
 
+                        Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                        Intent loginSuccess = new Intent(Registration.this, HomePage.class);
+                        startActivity(loginSuccess);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String error = e.getMessage();
 
-                            Intent homepage = new Intent(Registration.this, HomePage.class);
-                            startActivity(homepage);
-                            Toast.makeText(Registration.this, "You're registered", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else
-                        {
-                            FirebaseAuthException e = (FirebaseAuthException )task.getException();
-                            Toast.makeText(Registration.this, "You're not registered " +e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-
-
+                        Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
 
