@@ -15,9 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 
 
@@ -41,6 +39,12 @@ public class LoginActivity extends AppCompatActivity{
         }
     };
 
+    /********************************************
+     * Nathan Lieu
+     * Function:
+     * assign all varaibles a value refering to their Id's
+     * create an object of firebase database
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,11 @@ public class LoginActivity extends AppCompatActivity{
         login=(Button)findViewById(R.id.btn_login);
 
         Auth = FirebaseAuth.getInstance();
+        /********************************************
+         * Nathan Lieu
+         * Function:
+         * If register button clicked switch to registration class
+         *****************************************/
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +74,17 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        /********************************************
+         * Nathan Lieu
+         * Function:
+         * If login button clicked take in Username and Password inputs
+         * firebase object connects to database
+         * If the login is succesful switch pages to Homepage
+         * Prompt for successful Login
+         * else
+         * Prompt for unsuccessful
+         * page does not switch
+         */
 
        login.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -80,8 +100,6 @@ public class LoginActivity extends AppCompatActivity{
                            public void onComplete(@NonNull Task<AuthResult> task) {
                                if(task.isSuccessful())
                                {
-
-
                                    Intent homepage = new Intent(LoginActivity.this, HomePage.class);
                                    startActivity(homepage);
                                    Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
@@ -89,7 +107,7 @@ public class LoginActivity extends AppCompatActivity{
                                }
                                else
                                {
-                                   Toast.makeText(LoginActivity.this, "Failled to login In", Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(LoginActivity.this, "Failed to login In", Toast.LENGTH_SHORT).show();
 
                                }
 
