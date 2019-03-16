@@ -39,4 +39,10 @@
         android:layout_height="wrap_content"
         android:text="Login" />
 
+    <CheckBox
+        android:id="@+id/checkID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckBox" />
+
 </LinearLayout>
