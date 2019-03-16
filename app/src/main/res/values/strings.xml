@@ -13,4 +13,6 @@
         completions."
     </string>
     <string name="title_activity_login">Login Screen</string>
+    <string name="workclout_logo">WorkClout Logo</string>
+    <string name="login">Login</string>
 </resources>
