@@ -1,9 +1,9 @@
 package com.example.workclout;
 
 /*
- * Tests that a short password causes a failed login
- * @author Benjamin Napier
- */
+* Tests that a bad email causes a failed login
+* @author Benjamin Napier
+*/
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
@@ -21,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -34,13 +33,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginFailedShortPasswordTest {
+public class LoginFailedBadEmailTest {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void loginFailedShortPasswordTest() {
+    public void loginFailedBadEmailTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -60,16 +59,6 @@ public class LoginFailedShortPasswordTest {
                         isDisplayed()));
         appCompatEditText.perform(click());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.et_username),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText2.perform(replaceText("bryguy@gmail.com"), closeSoftKeyboard());
-
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -79,6 +68,16 @@ public class LoginFailedShortPasswordTest {
             e.printStackTrace();
         }
 
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.et_username),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText2.perform(replaceText("Bryguygmail.com"), closeSoftKeyboard());
+
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.et_password),
                         childAtPosition(
@@ -87,9 +86,7 @@ public class LoginFailedShortPasswordTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("Hunt2"), closeSoftKeyboard());
-
-        pressBack();
+        appCompatEditText3.perform(replaceText("Hunter21"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_login), withText("Login Now"),

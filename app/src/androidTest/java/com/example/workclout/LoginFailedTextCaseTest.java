@@ -1,5 +1,9 @@
 package com.example.workclout;
 
+/*
+ * Tests that a password with no upper-case character causes a failed login
+ * @author Benjamin Napier
+ */
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;

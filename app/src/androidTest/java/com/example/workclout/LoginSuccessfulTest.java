@@ -1,5 +1,9 @@
 package com.example.workclout;
 
+/*
+ * Tests that a correct email and password successfully completes login
+ * @author Benjamin Napier
+ */
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;

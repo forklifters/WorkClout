@@ -1,5 +1,9 @@
 package com.example.workclout;
 
+/*
+ * Tests that an email with two '@' symbols cause failed registration
+ * @author Benjamin Napier
+ */
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
