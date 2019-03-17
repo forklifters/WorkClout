@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class Registration extends AppCompatActivity {
     private EditText userName2, passWord2, rePassWord;
     private String userNameInput2, passWordInput2, rePassWordInput;
     private Button register2;
+    private CheckBox coachCheck;
 
     private FirebaseFirestore mFirestore;
 
@@ -38,6 +40,7 @@ public class Registration extends AppCompatActivity {
         userName2=findViewById(R.id.UserNameID2);
         passWord2=findViewById(R.id.PassWordID2);
         register2=findViewById(R.id.RegisterID2);
+        coachCheck=findViewById(R.id.coachCheck);
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -48,27 +51,47 @@ public class Registration extends AppCompatActivity {
                 userNameInput2 = userName2.getText().toString();// takes input
                 passWordInput2 = passWord2.getText().toString();// takes input
 
-                Map<String, String> userMap = new HashMap<>();
+                Map<String, String> dataToAdd = new HashMap<>();
 
-                userMap.put("username", userNameInput2);
-                userMap.put("password", passWordInput2);
+                dataToAdd.put("username", userNameInput2);
+                dataToAdd.put("password", passWordInput2);
 
-                mFirestore.collection("users").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                if (coachCheck.isChecked()){
+                    mFirestore.collection("coaches").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                            Intent loginSuccess = new Intent(Registration.this, HomePage.class);
+                            startActivity(loginSuccess);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String error = e.getMessage();
 
-                        Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                        Intent loginSuccess = new Intent(Registration.this, HomePage.class);
-                        startActivity(loginSuccess);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        String error = e.getMessage();
+                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{
+                    mFirestore.collection("athletes").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                            Intent loginSuccess = new Intent(Registration.this, HomePage.class);
+                            startActivity(loginSuccess);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String error = e.getMessage();
 
-                        Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+
 
             }
         });
