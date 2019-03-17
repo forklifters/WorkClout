@@ -15,4 +15,7 @@
     <string name="title_activity_login">Login Screen</string>
     <string name="workclout_logo">WorkClout Logo</string>
     <string name="login">Login</string>
+    <string name="navigation_drawer_open">\"\"</string>
+    <string name="navigation_drawer_close">\"\"</string>
+    <string name="title_activity_home_page">HomePage</string>
 </resources>

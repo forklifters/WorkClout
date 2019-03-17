@@ -4,33 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad_bg"
+    android:animateLayoutChanges="true"
     tools:context=".Registration">
 
-    <EditText
-        android:id="@+id/UserNameID2"
-        android:layout_width="217dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName|textEmailAddress"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/PassWordID2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/PassWordID2"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Email"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/UserNameID2"
+        app:layout_constraintStart_toStartOf="@+id/UserNameID2" />
+
+
+    <EditText
+        android:id="@+id/UserNameID2"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="48dp"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:ems="10"
-        android:inputType="textWebPassword"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@drawable/et_bg"
+        android:inputType="textPersonName|textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/PassWordID2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
         android:text="Password"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:ems="10"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/PassWordID2"
+        app:layout_constraintStart_toStartOf="@+id/PassWordID2" />
+
+    <EditText
+        android:id="@+id/PassWordID2"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="32dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:inputType="textWebPassword"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         app:layout_constraintBottom_toTopOf="@+id/RegisterID2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,10 +80,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="124dp"
-        android:text="REGISTER"
+        android:text="Register"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        android:background="@drawable/btn_bg"/>
 
 </android.support.constraint.ConstraintLayout>
