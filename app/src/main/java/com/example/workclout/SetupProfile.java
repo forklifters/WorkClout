@@ -1,5 +1,6 @@
 package com.example.workclout;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,14 +65,14 @@ public class SetupProfile extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-                                        Toast.makeText(SetupProfile.this, "You're profile is updated " , Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(SetupProfile.this, "Your profile is updated" , Toast.LENGTH_SHORT).show();
+                                        Intent saveSuccess = new Intent(SetupProfile.this, HomePage.class);
+                                        startActivity(saveSuccess);
                                     }
                                     else
                                     {
                                         FirebaseAuthException e = (FirebaseAuthException )task.getException();
-                                        Toast.makeText(SetupProfile.this, "You're  not Registerd " +e.getMessage(), Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(SetupProfile.this, "Your changes could not be saved" +e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
 
 
