@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity{
     private EditText userName, passWord;
-    private Button register, login;
+    private Button register, login, resetPassword;
     private String userNameInput, passWordInput;
     private FirebaseAuth Auth;
 
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity{
         passWord=(EditText)findViewById(R.id.et_password);
         register=(Button)findViewById(R.id.btn_register);
         login=(Button)findViewById(R.id.btn_login);
+        resetPassword=(Button)findViewById(R.id.btn_resetPassword);
 
         Auth = FirebaseAuth.getInstance();
 
@@ -91,6 +92,14 @@ public class LoginActivity extends AppCompatActivity{
                            }
                        });
 
+           }
+       });
+
+       resetPassword.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent forgotPassword = new Intent(LoginActivity.this, ForgotPassword.class);
+               startActivity(forgotPassword);
            }
        });
     }
