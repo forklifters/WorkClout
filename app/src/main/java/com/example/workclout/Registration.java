@@ -61,7 +61,7 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, HomePage.class);
+                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
                             startActivity(loginSuccess);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -78,7 +78,7 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, HomePage.class);
+                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
                             startActivity(loginSuccess);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
