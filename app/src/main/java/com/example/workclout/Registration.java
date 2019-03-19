@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity {
     private String createUserId(String email){
         String UId;
         UId = email.substring(0, email.indexOf("@")).toLowerCase();  //trims part of email
-        int digit = (int) Math.random()*9000; //Creates 4 digit string
+        int digit = (int) (Math.random()*9000); //Creates 4 digit string
         UId = UId + digit;     //adds two parts together
 
         return UId;
