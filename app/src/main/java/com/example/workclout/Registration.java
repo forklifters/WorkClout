@@ -33,6 +33,29 @@ public class Registration extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
 
+
+    /*****************************************************
+     * Paul Cochran
+     * This method produces a random unique User Id by
+     * taking the user's email address, triming everything
+     * before the @ symbol, and adding a random 4 digit
+     * number to the end of it. This has a very slim chance
+     * of producing a duplicate, so error handling is needed
+     * at a later time.
+     * @param email
+     * @return
+     */
+    private String createUserId(String email){
+        String UId;
+        UId = email.substring(0, email.indexOf("@")).toLowerCase();  //trims part of email
+        int digit = (int) Math.random()*9000; //Creates 4 digit string
+        UId = UId + digit;     //adds two parts together
+
+        return UId;
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,45 +79,29 @@ public class Registration extends AppCompatActivity {
                 dataToAdd.put("username", userNameInput2);
                 dataToAdd.put("password", passWordInput2);
 
+                String loginType = "athletes";
                 if (coachCheck.isChecked()){
-                    mFirestore.collection("coaches").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                            startActivity(loginSuccess);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            String error = e.getMessage();
-
-                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else{
-                    mFirestore.collection("athletes").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                            startActivity(loginSuccess);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            String error = e.getMessage();
-
-                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    loginType = "coaches";
                 }
 
+                String UId = createUserId(userNameInput2);
 
+                mFirestore.collection(loginType).document(UId).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                        Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
+                        startActivity(loginSuccess);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String error = e.getMessage();
 
+                        Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-
     }
 }
