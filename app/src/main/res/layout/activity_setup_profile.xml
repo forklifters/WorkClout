@@ -1,24 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gradStart"
     tools:context=".SetupProfile">
 
     <EditText
-        android:id="@+id/WeightID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/AgeID"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="128dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:ems="10"
+        android:fontFamily="sans-serif-light"
         android:inputType="number"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/ProfileID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Age"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/HeightId"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="168dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="number"
+        android:text="Height"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/WeightID"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="208dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="number"
+        android:text="Weight"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/GenderID"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="248dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPersonName"
+        android:text="Gender"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/FullNameID"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="288dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPersonName"
+        android:text="Full Name"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/BioId"
+        android:background="@drawable/et_bg"
+        android:layout_width="600dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="328dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPersonName"
+        android:text="Bio"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+    <!--Can't decide how to fill space between information
+        the save button help-->
+    <!--
+    <ImageView
+        android:id="@+id/imgView_dumbbellLeft"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="475dp"
+        android:rotation="330"
+        android:adjustViewBounds="true"
+        android:contentDescription="dumbbell"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/img_dumbbell" />
+
+    <ImageView
+        android:id="@+id/imgView_dumbbellRight"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="475dp"
+        android:rotation="30"
+        android:adjustViewBounds="true"
+        android:contentDescription="dumbbell"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/img_dumbbell" />
+
+    -->
 
     <Button
         android:id="@+id/ProfileID"
@@ -27,79 +151,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="520dp"
+        android:background="@drawable/btn_bg"
+        android:fontFamily="sans-serif-medium"
+        android:text="Save"
+        android:textColor="@color/white" />
 
-    <EditText
-        android:id="@+id/AgeID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/WeightID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/HeightId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/AgeID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/GenderID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/HeightId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/BioId"
-        android:layout_width="299dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/GenderID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/FullNameID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/BioId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
