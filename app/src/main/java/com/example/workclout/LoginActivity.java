@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 public class LoginActivity extends AppCompatActivity{
     private EditText userName, passWord;
-    private Button register, login;
+    private Button register, login, forgotPass;
     private String userNameInput, passWordInput;
     private FirebaseFirestore firestore;
     private CheckBox coachregister;
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity{
         passWord=(EditText)findViewById(R.id.et_password);
         register=(Button)findViewById(R.id.btn_register);
         login=(Button)findViewById(R.id.btn_login);
+        forgotPass=(Button)findViewById(R.id.btn_resetPassword);
         coachregister=(CheckBox) findViewById(R.id.checkID);
 
          firestore= FirebaseFirestore.getInstance();
@@ -80,6 +81,13 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent forgotPassword = new Intent(LoginActivity.this, ForgotPassword.class);
+              startActivity(forgotPassword);
+            }
+        });
 
 
         /********************************************
@@ -99,7 +107,7 @@ public class LoginActivity extends AppCompatActivity{
            @Override
            public void onClick(View v) {
 
-                String choice="athletes";
+               String choice="athletes";
                if (coachregister.isChecked()){
                    choice="coaches";
                }
@@ -171,9 +179,12 @@ public class LoginActivity extends AppCompatActivity{
 
        });
     }
+
+
+
     public void move()
     {
-        Intent homepage = new Intent(LoginActivity.this, SetupProfile.class);
+        Intent homepage = new Intent(LoginActivity.this, HomePage.class);
         startActivity(homepage);
     }
 
