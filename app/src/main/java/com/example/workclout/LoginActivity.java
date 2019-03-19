@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -15,13 +16,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 
 public class LoginActivity extends AppCompatActivity{
     private EditText userName, passWord;
     private Button register, login;
     private String userNameInput, passWordInput;
-    private FirebaseAuth Auth;
+    private FirebaseFirestore firestore;
+    private CheckBox coachregister;
+    private boolean loginSuccess = false;
 
     RelativeLayout rellay1, rellay2;
 
@@ -53,8 +63,9 @@ public class LoginActivity extends AppCompatActivity{
         passWord=(EditText)findViewById(R.id.et_password);
         register=(Button)findViewById(R.id.btn_register);
         login=(Button)findViewById(R.id.btn_login);
+        coachregister=(CheckBox) findViewById(R.id.checkID);
 
-        Auth = FirebaseAuth.getInstance();
+         firestore= FirebaseFirestore.getInstance();
         /********************************************
          * Nathan Lieu
          * Function:
@@ -69,6 +80,8 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+
+
         /********************************************
          * Nathan Lieu
          * Function:
@@ -81,38 +94,88 @@ public class LoginActivity extends AppCompatActivity{
          * page does not switch
          */
 
+
        login.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
-                userNameInput=userName.getText().toString();// takes input
-                passWordInput=passWord.getText().toString();// takes input
+                String choice="athletes";
+               if (coachregister.isChecked()){
+                   choice="coaches";
+               }
+                   firestore.collection(choice).document("login").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                       @Override
+                       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-               // add firebase registration
-               Auth.signInWithEmailAndPassword(userNameInput,passWordInput)
-                       .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                           @Override
-                           public void onComplete(@NonNull Task<AuthResult> task) {
-                               if(task.isSuccessful())
-                               {
-                                   Intent homepage = new Intent(LoginActivity.this, HomePage.class);
-                                   startActivity(homepage);
+
+                           if (task.isSuccessful()) {
+                               DocumentSnapshot documentSnapshot = task.getResult();
+                               String databaseUserName = documentSnapshot.getString("username");
+                               String databasePassWord = documentSnapshot.getString("password");
+                               userNameInput = userName.getText().toString();// takes input
+                               passWordInput = passWord.getText().toString();// takes input
+
+                               if (userNameInput.equals(databaseUserName) && passWordInput.equals(databasePassWord)) {
+
                                    Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
+                                   //loginSuccess = true;
+                                   move();
+                               } else {
+                                   Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
 
                                }
-                               else
-                               {
-                                   Toast.makeText(LoginActivity.this, "Failed to login In", Toast.LENGTH_SHORT).show();
-
-                               }
+                           } else {
+                               Toast.makeText(LoginActivity.this, "Failed to Connect Database", Toast.LENGTH_SHORT).show();
 
                            }
-                       });
 
-           }
+
+                       }
+                   });
+               //}
+               /*else{
+                   firestore.collection("athletes").document("login").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                       @Override
+                       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                           if (task.isSuccessful()) {
+                               DocumentSnapshot documentSnapshot = task.getResult();
+                               String databaseUserName = documentSnapshot.getString("username");
+                               String databasePassWord = documentSnapshot.getString("password");
+                               userNameInput = userName.getText().toString();// takes input
+                               passWordInput = passWord.getText().toString();// takes input
+
+                               if (userNameInput.equals(databaseUserName) && passWordInput.equals(databasePassWord)) {
+
+                                   Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
+                                   //loginSuccess = true;
+                                   move();
+                               } else {
+                                   Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
+
+                               }
+                           } else {
+                               Toast.makeText(LoginActivity.this, "Failed to Connect Database", Toast.LENGTH_SHORT).show();
+
+                           }
+
+
+                       }
+                   });
+               }*/
+               // add firebase registration
+
+
+           }//delete
+
        });
     }
-
+    public void move()
+    {
+        Intent homepage = new Intent(LoginActivity.this, SetupProfile.class);
+        startActivity(homepage);
+    }
 
 
 }
