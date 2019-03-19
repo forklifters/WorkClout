@@ -99,76 +99,40 @@ public class LoginActivity extends AppCompatActivity{
            @Override
            public void onClick(View v) {
 
-                String choice="athletes";
-               if (coachregister.isChecked()){
-                   choice="coaches";
+               String choice = "athletes";
+               if (coachregister.isChecked()) {
+                   choice = "coaches";
                }
-                   firestore.collection(choice).document("login").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                       @Override
-                       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               firestore.collection(choice).document("login").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
 
-                           if (task.isSuccessful()) {
-                               DocumentSnapshot documentSnapshot = task.getResult();
-                               String databaseUserName = documentSnapshot.getString("username");
-                               String databasePassWord = documentSnapshot.getString("password");
-                               userNameInput = userName.getText().toString();// takes input
-                               passWordInput = passWord.getText().toString();// takes input
+                       if (task.isSuccessful()) {
+                           DocumentSnapshot documentSnapshot = task.getResult();
+                           String databaseUserName = documentSnapshot.getString("username");
+                           String databasePassWord = documentSnapshot.getString("password");
+                           userNameInput = userName.getText().toString();// takes input
+                           passWordInput = passWord.getText().toString();// takes input
 
-                               if (userNameInput.equals(databaseUserName) && passWordInput.equals(databasePassWord)) {
+                           if (userNameInput.equals(databaseUserName) && passWordInput.equals(databasePassWord)) {
 
-                                   Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
-                                   //loginSuccess = true;
-                                   move();
-                               } else {
-                                   Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
-
-                               }
+                               Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
+                               //loginSuccess = true;
+                               move();
                            } else {
-                               Toast.makeText(LoginActivity.this, "Failed to Connect Database", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
 
                            }
-
-
-                       }
-                   });
-               //}
-               /*else{
-                   firestore.collection("athletes").document("login").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                       @Override
-                       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-
-                           if (task.isSuccessful()) {
-                               DocumentSnapshot documentSnapshot = task.getResult();
-                               String databaseUserName = documentSnapshot.getString("username");
-                               String databasePassWord = documentSnapshot.getString("password");
-                               userNameInput = userName.getText().toString();// takes input
-                               passWordInput = passWord.getText().toString();// takes input
-
-                               if (userNameInput.equals(databaseUserName) && passWordInput.equals(databasePassWord)) {
-
-                                   Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
-                                   //loginSuccess = true;
-                                   move();
-                               } else {
-                                   Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
-
-                               }
-                           } else {
-                               Toast.makeText(LoginActivity.this, "Failed to Connect Database", Toast.LENGTH_SHORT).show();
-
-                           }
-
+                       } else {
+                           Toast.makeText(LoginActivity.this, "Failed to Connect Database", Toast.LENGTH_SHORT).show();
 
                        }
-                   });
-               }*/
-               // add firebase registration
 
 
-           }//delete
-
+                   }
+               });
+           }
        });
     }
     public void move()

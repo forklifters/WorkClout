@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,9 +56,19 @@ public class Registration extends AppCompatActivity {
 
                 dataToAdd.put("username", userNameInput2);
                 dataToAdd.put("password", passWordInput2);
+                String choice="athletes";
 
-                if (coachCheck.isChecked()){
-                    mFirestore.collection("coaches").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                if (coachCheck.isChecked()) {
+                    choice="coaches";
+
+                }
+                    mFirestore.collection(choice).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        }
+                    });
+                    mFirestore.collection(choice).document().set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
@@ -72,24 +83,8 @@ public class Registration extends AppCompatActivity {
                             Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else{
-                    mFirestore.collection("athletes").document("login").set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                            startActivity(loginSuccess);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            String error = e.getMessage();
 
-                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+
 
 
 

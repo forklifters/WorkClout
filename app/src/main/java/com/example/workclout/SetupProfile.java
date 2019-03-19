@@ -9,23 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SetupProfile extends AppCompatActivity {
-    private EditText bio, weight, height, gender,fullName, age;
+    private EditText bio, weight, height, gender, fullName, age;
     private Button setup;
-    private String bioInput, fullNameInput, genderInput, currentUserID;
-    private double weightInput, heightInput;
-    private int ageInput;
-    private FirebaseAuth update;
+    private String bioInput, fullNameInput, ageInput, heightInput, weightInput;
+    private FirebaseFirestore firestoreoreupdate;
+
     //private DatabaseReference profileUserID;
 
 
@@ -33,60 +29,52 @@ public class SetupProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_profile);
-        update = FirebaseAuth.getInstance();
-        bio= (EditText) findViewById(R.id.BioId);
-        age =(EditText) findViewById(R.id.AgeID);
-        height= (EditText) findViewById(R.id.HeightId);
-        weight= (EditText) findViewById(R.id.WeightID);
-        fullName= (EditText) findViewById(R.id.FullNameID);
-        setup=(Button) findViewById(R.id.ProfileID);
-        //currentUserID= update.getCurrentUser().getUid();
-        //profileUserID= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        firestoreoreupdate = FirebaseFirestore.getInstance();
 
+        bio = (EditText) findViewById(R.id.BioId);
+        age = (EditText) findViewById(R.id.AgeID);
+        height = (EditText) findViewById(R.id.HeightId);
+        weight = (EditText) findViewById(R.id.WeightID);
+        fullName = (EditText) findViewById(R.id.FullNameID);
+        setup = (Button) findViewById(R.id.ProfileID);
 
         setup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bioInput=bio.getText().toString().trim();
-                //ageInput=bio.getText().toString().trim();
                 fullNameInput=fullName.getText().toString().trim();
                 bioInput=bio.getText().toString().trim();
-                bioInput=bio.getText().toString().trim();
-                bioInput=bio.getText().toString().trim();
-                FirebaseUser account = update.getCurrentUser();
-                if(account!=null)
-                {
-                    UserProfileChangeRequest profile =  new UserProfileChangeRequest.Builder()
-                            .setDisplayName(fullNameInput)
-                            .build();
-                    account.updateProfile(profile)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        Toast.makeText(SetupProfile.this, "Your profile is updated" , Toast.LENGTH_SHORT).show();
-                                        Intent saveSuccess = new Intent(SetupProfile.this, HomePage.class);
-                                        startActivity(saveSuccess);
-                                    }
-                                    else
-                                    {
-                                        FirebaseAuthException e = (FirebaseAuthException )task.getException();
-                                        Toast.makeText(SetupProfile.this, "Your changes could not be saved" +e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                ageInput=age.getText().toString().trim();
+                heightInput=height.getText().toString().trim();
+                weightInput =weight.getText().toString().trim();
 
 
-                                }
-                            });
 
-                }
+                Map<String, String> dataToUpdate = new HashMap<>();
+                dataToUpdate.put("full name",fullNameInput);
+                dataToUpdate.put("bio",bioInput);
+                dataToUpdate.put("age" ,ageInput);
+                dataToUpdate.put("height" ,heightInput);
+                dataToUpdate.put("weight" ,weightInput);
 
+
+                firestoreoreupdate.collection("athletes").document("login").collection("settings").document("bio")
+                        .set(dataToUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Intent homepage = new Intent(SetupProfile.this, LoginActivity.class);
+                        startActivity(homepage);
+
+                    }
+                });
 
 
             }
         });
 
     }
-
-
 }
+
+
+
+
+
