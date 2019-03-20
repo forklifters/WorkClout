@@ -66,7 +66,7 @@ public class Registration extends AppCompatActivity {
         userName2=findViewById(R.id.UserNameID2);
         passWord2=findViewById(R.id.PassWordID2);
         register2=findViewById(R.id.RegisterID2);
-        coachCheck=findViewById(R.id.coachCheck);
+        coachCheck=findViewById(R.id.cb_coachRegister);
 
         mFirestore = FirebaseFirestore.getInstance();
 

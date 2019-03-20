@@ -32,9 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName, passWord;
     private Button register, login, forgotPass;
     private String emailInput, passWordInput, userID, databaseEmail, databasePassWord;
+    private CheckBox coachLogin, coachRegister;
     private FirebaseFirestore firestore;
     private DocumentReference loginRef;
-    //private CheckBox coachregister;
     private boolean loginSuccess = false;
 
     RelativeLayout rellay1, rellay2;
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         return UId;
 
-        //TODO: Error handle for when userID already exists and incriment by one
+        //TODO: Error handle for when userID already exists and increment by one
     }
 
     /********************************************
@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         register = (Button) findViewById(R.id.btn_register);
         login = (Button) findViewById(R.id.btn_login);
         forgotPass = (Button) findViewById(R.id.btn_resetPassword);
-        //coachregister=(CheckBox) findViewById(R.id.checkID);
+        coachRegister=(CheckBox) findViewById(R.id.cb_coachRegister);
+        coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
 
         firestore = FirebaseFirestore.getInstance();
         /********************************************
@@ -97,6 +98,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /********************************************
+         * Benjamin Napier
+         * Function:
+         * If forgot password button clicked switch to forgot password class
+         *****************************************/
         forgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
          * Function:
          * If login button clicked take in Username and Password inputs
          * firebase object connects to database
-         * If the login is succesful switch pages to Homepage
+         * If the login is successful switch pages to Homepage
          * Prompt for successful Login
          * else
          * Prompt for unsuccessful
