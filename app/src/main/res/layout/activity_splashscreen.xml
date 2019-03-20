@@ -122,6 +122,17 @@
 
                 </LinearLayout>
 
+                <CheckBox
+                    android:id="@+id/cb_coachLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:buttonTint="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Coach"
+                    android:textColor="@color/white"
+                    android:theme="@style/checkBoxStyle" />
+
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="wrap_content"

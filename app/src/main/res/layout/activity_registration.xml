@@ -112,7 +112,7 @@
             android:textSize="16sp" />
 
         <CheckBox
-            android:id="@+id/coachCheck"
+            android:id="@+id/cb_coachRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
