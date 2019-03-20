@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 public class LoginActivity extends AppCompatActivity {
     private EditText userName, passWord;
     private Button register, login, forgotPass;
-    private String emailInput, passWordInput, userID, databaseEmail, databasePassWord;
+    private String emailInput, passWordInput, userID, databaseEmail, databasePassWord, accountType;
     private FirebaseFirestore firestore;
     private DocumentReference loginRef;
     //private CheckBox coachregister;
