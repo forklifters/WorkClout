@@ -20,19 +20,43 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Registration extends AppCompatActivity {
-    private EditText userName2, passWord2, rePassWord;
-    private String userNameInput2, passWordInput2, rePassWordInput;
+    private EditText userName2, passWord2;
+    private String emailInput2, passWordInput2;
     private Button register2;
     private CheckBox coachCheck;
 
     private FirebaseFirestore mFirestore;
+
+
+    /*****************************************************
+     * Paul Cochran
+     * This method produces a random unique User Id by
+     * taking the user's email address, triming everything
+     * before the @ symbol, and adding a random 4 digit
+     * number to the end of it. This has a very slim chance
+     * of producing a duplicate, so error handling is needed
+     * at a later time.
+     * @param email
+     * @return
+     */
+    private String createUserId(String email){
+        String UId;
+        UId = email.substring(0, email.indexOf("@")).toLowerCase();  //trims part of email
+        int digit = email.substring(email.indexOf("@")+1, email.length()).length(); //number of chars after the @
+        UId = UId + digit;     //adds two parts together
+
+        return UId;
+
+        //TODO: Error handle for when userID already exists and incriment by one
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,47 +73,40 @@ public class Registration extends AppCompatActivity {
         register2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userNameInput2 = userName2.getText().toString();// takes input
+                emailInput2 = userName2.getText().toString();// takes input
                 passWordInput2 = passWord2.getText().toString();// takes input
+
+                String UId = createUserId(emailInput2);
+
 
                 Map<String, String> dataToAdd = new HashMap<>();
 
-                dataToAdd.put("username", userNameInput2);
+                dataToAdd.put("email", emailInput2);
                 dataToAdd.put("password", passWordInput2);
-                String choice="athletes";
+                dataToAdd.put("username", UId);
 
-                if (coachCheck.isChecked()) {
-                    choice="coaches";
-
+                String loginType = "athletes";
+                if (coachCheck.isChecked()){
+                    loginType = "coaches";
                 }
-                    mFirestore.collection(choice).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        }
-                    });
-                    mFirestore.collection(choice).document().set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                            startActivity(loginSuccess);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            String error = e.getMessage();
-
-                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
 
+                mFirestore.collection(loginType).document(UId).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                        Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
+                        startActivity(loginSuccess);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String error = e.getMessage();
 
-
-
+                        Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-
     }
 }
