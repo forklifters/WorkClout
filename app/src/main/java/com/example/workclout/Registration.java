@@ -66,7 +66,7 @@ public class Registration extends AppCompatActivity {
         userName2=findViewById(R.id.UserNameID2);
         passWord2=findViewById(R.id.PassWordID2);
         register2=findViewById(R.id.RegisterID2);
-        coachCheck=findViewById(R.id.coachCheck);
+        coachCheck=findViewById(R.id.cb_coachRegister);
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -77,38 +77,69 @@ public class Registration extends AppCompatActivity {
                 emailInput2 = userName2.getText().toString();// takes input
                 passWordInput2 = passWord2.getText().toString();// takes input
 
-                String UId = createUserId(emailInput2);
+                if (isValidPassword(passWordInput2)) {
+                    String UId = createUserId(emailInput2);
 
 
-                Map<String, String> dataToAdd = new HashMap<>();
+                    Map<String, String> dataToAdd = new HashMap<>();
 
-                dataToAdd.put("email", emailInput2);
-                dataToAdd.put("password", passWordInput2);
-                dataToAdd.put("username", UId);
+                    dataToAdd.put("email", emailInput2);
+                    dataToAdd.put("password", passWordInput2);
+                    dataToAdd.put("username", UId);
 
-                String loginType = "athletes";
-                if (coachCheck.isChecked()){
-                    loginType = "coaches";
+                    String loginType = "athletes";
+                    if (coachCheck.isChecked()) {
+                        loginType = "coaches";
+                    }
+
+
+                    mFirestore.collection(loginType).document(UId).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
+                            startActivity(loginSuccess);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String error = e.getMessage();
+
+                            Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-
-
-
-                mFirestore.collection(loginType).document(UId).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
-                        Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                        startActivity(loginSuccess);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        String error = e.getMessage();
-
-                        Toast.makeText(Registration.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         });
+    }
+
+    /**
+     * Brian Zhang
+     * Checks if the password is valid or not
+     * @param password is the password string input by user
+     * @return valid returns whether or not the password is within parameters
+     */
+    public boolean isValidPassword(String password) {
+        if (!password.matches(".*[A-Z].*")) {
+            Toast.makeText(Registration.this, "Must contain an uppercase letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            Toast.makeText(Registration.this, "Must contain a number", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+//
+//        if (!password.matches(".*[~!.......].*")) {
+//            Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+
+        if (password.length() < 6) {
+            Toast.makeText(Registration.this, "Must be at least 6 characters long" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 }
