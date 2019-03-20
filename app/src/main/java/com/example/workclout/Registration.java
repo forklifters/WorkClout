@@ -129,11 +129,11 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(Registration.this, "Must contain a number", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        if (!password.matches(".*[~!.......].*")) {
-            Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//
+//        if (!password.matches(".*[~!.......].*")) {
+//            Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         if (password.length() < 6) {
             Toast.makeText(Registration.this, "Must be at least 6 characters long" , Toast.LENGTH_SHORT).show();
