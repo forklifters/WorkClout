@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         register = (Button) findViewById(R.id.btn_register);
         login = (Button) findViewById(R.id.btn_login);
         forgotPass = (Button) findViewById(R.id.btn_resetPassword);
-        coachRegister=(CheckBox) findViewById(R.id.cb_coachRegister);
         coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
 
         firestore = FirebaseFirestore.getInstance();
@@ -131,9 +130,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 String accountType = "athletes";
-//               if (coachregister.isChecked()){
-//                   accountType="coaches";
-//               }
+               if (coachLogin.isChecked()){
+                   accountType="coaches";
+               }
                 emailInput = userName.getText().toString();// takes input
                 passWordInput = passWord.getText().toString();// takes input
                 userID = getUserId(emailInput);
