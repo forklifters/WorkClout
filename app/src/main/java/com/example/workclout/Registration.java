@@ -53,7 +53,7 @@ public class Registration extends AppCompatActivity {
 
         return UId;
 
-        //TODO: Error handle for when userID already exists and incriment by one
+        //TODO: Error handle for when userID already exists and increment by one
     }
 
 
