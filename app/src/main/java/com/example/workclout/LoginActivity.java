@@ -31,9 +31,10 @@ import javax.annotation.Nullable;
 public class LoginActivity extends AppCompatActivity {
     private EditText userName, passWord;
     private Button register, login, forgotPass;
-    private String emailInput, passWordInput, userID, databaseEmail, databasePassWord;
+
+    private String emailInput, passWordInput, userID, databaseEmail, databasePassWord, accountType;
     private CheckBox coachLogin, coachRegister;
-    private FirebaseFirestore firestore;
+   private FirebaseFirestore firestore;
     private DocumentReference loginRef;
     private boolean loginSuccess = false;
 
@@ -80,7 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         register = (Button) findViewById(R.id.btn_register);
         login = (Button) findViewById(R.id.btn_login);
         forgotPass = (Button) findViewById(R.id.btn_resetPassword);
-        //coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
+        coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
+        accountType = "athletes";
 
         firestore = FirebaseFirestore.getInstance();
         /********************************************
@@ -122,6 +124,13 @@ public class LoginActivity extends AppCompatActivity {
          * Prompt for unsuccessful
          * page does not switch
          */
+        coachLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountType="coaches";
+
+            }
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -129,10 +138,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String accountType = "athletes";
-//               if (coachLogin.isChecked()){
-//                   accountType="coaches";
-//               }
+
                 emailInput = userName.getText().toString();// takes input
                 passWordInput = passWord.getText().toString();// takes input
                 userID = getUserId(emailInput);
