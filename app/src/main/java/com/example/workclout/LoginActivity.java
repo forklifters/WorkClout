@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            Toast.makeText(LoginActivity.this, "Database exist", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "Database exist", Toast.LENGTH_SHORT).show();
                             databaseEmail = documentSnapshot.getString("email");
                             databasePassWord = documentSnapshot.getString("password");
 
