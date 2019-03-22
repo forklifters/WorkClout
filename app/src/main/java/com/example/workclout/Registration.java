@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
     private EditText userName2, passWord2;
-    private String emailInput2, passWordInput2;
+    private String emailInput2, passWordInput2, loginType;
     private Button register2;
     private CheckBox coachCheck;
 
@@ -66,7 +66,7 @@ public class Registration extends AppCompatActivity {
         userName2=findViewById(R.id.UserNameID2);
         passWord2=findViewById(R.id.PassWordID2);
         register2=findViewById(R.id.RegisterID2);
-        //coachCheck=findViewById(R.id.cb_coachRegister);
+        coachCheck=findViewById(R.id.cb_coachRegister);
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -78,7 +78,7 @@ public class Registration extends AppCompatActivity {
                 passWordInput2 = passWord2.getText().toString();// takes input
 
                 if (isValidPassword(passWordInput2)) {
-                    String UId = createUserId(emailInput2);
+                    final String UId = createUserId(emailInput2);
 
 
                     Map<String, String> dataToAdd = new HashMap<>();
@@ -86,8 +86,14 @@ public class Registration extends AppCompatActivity {
                     dataToAdd.put("email", emailInput2);
                     dataToAdd.put("password", passWordInput2);
                     dataToAdd.put("username", UId);
+                    dataToAdd.put("full name", null);
+                    dataToAdd.put("bio", null);
+                    dataToAdd.put("gender", null);
+                    dataToAdd.put("age", null );
+                    dataToAdd.put("height", null );
+                    dataToAdd.put("weight", null );
 
-                    String loginType = "athletes";
+                     loginType = "athletes";
                     if (coachCheck.isChecked()) {
                         loginType = "coaches";
                     }
@@ -97,7 +103,10 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
+
                             Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
+                            loginSuccess.putExtra("userID", UId);
+                            loginSuccess.putExtra("accountType", loginType);
                             startActivity(loginSuccess);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -124,16 +133,20 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(Registration.this, "Must contain an uppercase letter", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (!password.matches("(.*[a-z].*)")) {
+            Toast.makeText(Registration.this, "Must contain an lowercase letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         if (!password.matches(".*\\d.*")) {
             Toast.makeText(Registration.this, "Must contain a number", Toast.LENGTH_SHORT).show();
             return false;
         }
-//
-//        if (!password.matches(".*[~!.......].*")) {
-//            Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
+
+    /*if (!password.matches("[^\\w\\s*]+")) {
+           Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
 
         if (password.length() < 6) {
             Toast.makeText(Registration.this, "Must be at least 6 characters long" , Toast.LENGTH_SHORT).show();

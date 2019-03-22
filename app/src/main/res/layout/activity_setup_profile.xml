@@ -8,57 +8,57 @@
 
     <EditText
         android:id="@+id/AgeID"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="128dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:inputType="number"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="Age"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/HeightId"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="168dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="168dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:inputType="number"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="Height"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/WeightID"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="208dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="208dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:inputType="number"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="Weight"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/GenderID"
