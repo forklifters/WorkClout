@@ -17,10 +17,10 @@
         android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Age "
         android:inputType="textPersonName"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="Age"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
@@ -35,10 +35,10 @@
         android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Height "
         android:inputType="textPersonName"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="Height"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
@@ -53,66 +53,66 @@
         android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Weight "
         android:inputType="textPersonName"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="Weight"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
     <EditText
         android:id="@+id/GenderID"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="248dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="248dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Gender "
         android:inputType="textPersonName"
-        android:text="Gender"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/FullNameID"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="288dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="288dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Full Name "
         android:inputType="textPersonName"
-        android:text="Full Name"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/BioId"
-        android:background="@drawable/et_bg"
         android:layout_width="600dp"
         android:layout_height="125dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="328dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="328dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/et_bg"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Bio "
         android:inputType="textPersonName"
-        android:text="Bio"
-        android:textSize="15sp"
-        android:textColor="@color/white"/>
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <!--Can't decide how to fill space between information
         the save button help-->

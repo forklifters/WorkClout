@@ -31,7 +31,7 @@ public class Registration extends AppCompatActivity {
     private String emailInput2, passWordInput2, loginType;
     private Button register2;
     private CheckBox coachCheck;
-
+    private DocumentReference setUPRef;
     private FirebaseFirestore mFirestore;
 
 
@@ -86,7 +86,7 @@ public class Registration extends AppCompatActivity {
                     dataToAdd.put("email", emailInput2);
                     dataToAdd.put("password", passWordInput2);
                     dataToAdd.put("username", UId);
-                    dataToAdd.put("full name", null);
+                    dataToAdd.put("Name", null);
                     dataToAdd.put("bio", null);
                     dataToAdd.put("gender", null);
                     dataToAdd.put("age", null );

@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -24,11 +25,11 @@ import java.util.Map;
 public class SetupProfile extends AppCompatActivity {
     private EditText bio, weight, height, gender, fullName, age;
     private Button setup;
-    private String bioInput, fullNameInput, ageInput, heightInput, weightInput, loginType, UID,genderInput;
+    private String bioInput, fullNameInput, ageInput, heightInput, weightInput, loginType, UId,genderInput;
+    private String databaseBio, databaseName,databaseAge,databaseHeight,databaseWeight,databaseGender;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
 
-    //private DatabaseReference profileUserID;
 
 
     @Override
@@ -36,6 +37,8 @@ public class SetupProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_profile);
         firestoreoreupdate = FirebaseFirestore.getInstance();
+
+
 
         bio = (EditText) findViewById(R.id.BioId);
         age = (EditText) findViewById(R.id.AgeID);
@@ -46,8 +49,9 @@ public class SetupProfile extends AppCompatActivity {
         setup = (Button) findViewById(R.id.ProfileID);
         Bundle getBundle= new Bundle();
         getBundle=getIntent().getExtras();
-        UID =getBundle.getString("userID");
+        UId =getBundle.getString("userID");
         loginType=getBundle.getString("accountType");
+        setUPRef = firestoreoreupdate.collection(loginType).document(UId);
 
         setup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,18 +62,31 @@ public class SetupProfile extends AppCompatActivity {
                 heightInput=height.getText().toString().trim();
                 weightInput =weight.getText().toString().trim();
                 genderInput=gender.getText().toString().trim();
+                setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        databaseName = documentSnapshot.getString("Name");
+                        databaseBio = documentSnapshot.getString("bio");
+                        databaseGender = documentSnapshot.getString("gender");
+                        databaseAge = documentSnapshot.getString("age");
+                        databaseHeight = documentSnapshot.getString("height");
+                        databaseWeight = documentSnapshot.getString("weight");
+                        fullName.setHint(databaseName);
+                        bio.setHint(databaseBio);
+                        gender.setHint(databaseGender);
+                        age.setHint(databaseAge);
+                        height.setHint(databaseName);
+                        weight.setHint(databaseName);
 
-
-
-                Map<String, String> dataToUpdate = new HashMap<>();
-                dataToUpdate.put("full name",fullNameInput);
-                dataToUpdate.put("bio",bioInput);
-                dataToUpdate.put("gender", genderInput);
-                dataToUpdate.put("age" ,ageInput);
-                dataToUpdate.put("height" ,heightInput);
-                dataToUpdate.put("weight" ,weightInput);
+                    }
+                });
 
                 update();
+                Intent loginSuccess = new Intent(SetupProfile.this, Settings.class);
+                loginSuccess.putExtra("userID", UId);
+                loginSuccess.putExtra("accountType", loginType);
+                startActivity(loginSuccess);
+
 
 
 
@@ -79,7 +96,6 @@ public class SetupProfile extends AppCompatActivity {
 
     }
                 public void update() {
-                    setUPRef = firestoreoreupdate.collection(loginType).document(UID);
                     setUPRef.update("Name", fullNameInput);
                     setUPRef.update("bio", bioInput);
                     setUPRef.update("gender", genderInput);
@@ -89,6 +105,15 @@ public class SetupProfile extends AppCompatActivity {
                     Toast.makeText(SetupProfile.this, "Your profile is updated",Toast.LENGTH_SHORT).show();
 
 
+                }
+
+
+                public void move()
+                {
+                    Intent testing = new Intent(SetupProfile.this, Settings.class);
+                    testing.putExtra("userID", UId);
+                    testing.putExtra("accountType", loginType);
+                    startActivity(testing);
                 }
 }
 
