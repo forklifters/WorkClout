@@ -1,5 +1,9 @@
 # Workclout
 ## Project-C-Group-4
+### Message to the all-powerful beings who are grading this project:
+* All documents for project part 1 and sprint 1 are listed under closed issues
+* Documents for project part 1 and sprint 1 are also listed in files in the code (markdown is not supported in these files)
+* Sprint 2 in progress documentation is listed under active issues and will be periodically moved over to a file under the code tab
 ### Group members: 
 * Brian Zhang - Android code wizard
 * Nathan Lieu - Android code sorcerer
