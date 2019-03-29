@@ -47,7 +47,6 @@ public class Settings extends AppCompatActivity {
         Toast.makeText(Settings.this, "Your " + loginType, Toast.LENGTH_SHORT).show();
         firestoreoreupdate = FirebaseFirestore.getInstance();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
-        //fuck me nothing fucking works
 
         nightmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

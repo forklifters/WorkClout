@@ -13,14 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Challenges"></activity>
+        <activity
+            android:name=".HomePage"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Challenges" />
         <activity android:name=".CoachTab" />
         <activity android:name=".CreateChallenge" />
         <activity android:name=".Settings" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SetupProfile" />
         <activity android:name=".Registration" />
-        <activity android:name=".HomePage" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">

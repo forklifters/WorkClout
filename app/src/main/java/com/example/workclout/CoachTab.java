@@ -43,7 +43,7 @@ public class CoachTab extends AppCompatActivity {
         createYourChallengesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createYourChallenges= new Intent(CoachTab.this,CreateYourChallenges.class);
+                Intent createYourChallenges= new Intent(CoachTab.this,CreateChallenge.class);
                 startActivity(createYourChallenges);
 
             }
