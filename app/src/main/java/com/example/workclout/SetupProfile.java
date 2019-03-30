@@ -56,8 +56,8 @@ public class SetupProfile extends AppCompatActivity {
                 databaseWeight = documentSnapshot.getString("weight");
                 if(databaseName==null && databaseBio== null && databaseGender==null && databaseAge== null  && databaseHeight== null && databaseWeight== null)
                 {
-                    fullName.setHint("full name is");
-                    bio.setHint("bio");
+                    fullName.setHint("Full name is bob the builder");
+                    bio.setHint("bio love ");
                     gender.setHint("gender");
                     age.setHint("age");
                     height.setHint("height in ft" );
@@ -65,7 +65,7 @@ public class SetupProfile extends AppCompatActivity {
 
                 }
                 else {
-                    fullName.setHint("full name is " + databaseName);
+                    fullName.setHint("Full name is boooooooo " + databaseName);
                     bio.setHint("full bio is " + databaseBio);
                     gender.setHint("gender is " + databaseGender);
                     age.setHint("age is " + databaseAge);
