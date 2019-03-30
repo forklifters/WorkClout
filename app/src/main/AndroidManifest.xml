@@ -15,9 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Challenges"
+            android:label="@string/title_activity_challenges"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings"
@@ -26,7 +30,6 @@
             android:name=".HomePage"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Challenges" />
         <activity android:name=".CoachTab" />
         <activity android:name=".CreateChallenge" />
         <activity android:name=".ForgotPassword" />
