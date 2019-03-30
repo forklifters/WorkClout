@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,9 +27,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private String emailInput, passWordInput, userID, databaseEmail, databasePassWord, accountType;
     private CheckBox coachLogin, coachRegister;
-   private FirebaseFirestore firestore;
+    private FirebaseFirestore firestore;
     private DocumentReference loginRef;
     private boolean loginSuccess = false;
+    public helperClass x = new helperClass();
 
     RelativeLayout rellay1, rellay2;
 
@@ -63,20 +65,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
+        variables();
+        turn_on_night_mode();
 
-        rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
-        rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
-        handler.postDelayed(runnable, 1800); //1800 is the timeout for the splash
 
-        userName = (EditText) findViewById(R.id.et_username);
-        passWord = (EditText) findViewById(R.id.et_password);
-        register = (Button) findViewById(R.id.btn_register);
-        login = (Button) findViewById(R.id.btn_login);
-        forgotPass = (Button) findViewById(R.id.btn_resetPassword);
-        coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
-        accountType = "athletes";
-
-        firestore = FirebaseFirestore.getInstance();
         /********************************************
          * Nathan Lieu
          * Function:
@@ -134,17 +126,17 @@ public class LoginActivity extends AppCompatActivity {
                 emailInput = userName.getText().toString();// takes input
                 passWordInput = passWord.getText().toString();// takes input
                 userID = getUserId(emailInput);
-
-                //TODO search through collection for repetition of login
+                x.set_user_id(userID);
+                x.set_login_type(accountType);
                 loginRef = firestore.collection(accountType).document(userID);
 
                 loginRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            //Toast.makeText(LoginActivity.this, "Database exist", Toast.LENGTH_SHORT).show();
                             databaseEmail = documentSnapshot.getString("email");
                             databasePassWord = documentSnapshot.getString("password");
+
 
                             if (emailInput.equals(databaseEmail) && passWordInput.equals(databasePassWord)) {
                                 Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
@@ -159,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            Toast.makeText(LoginActivity.this, "Database not exist", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login failed renter username or password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -168,5 +160,35 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void variables()
+    {
+        rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
+        rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
+        handler.postDelayed(runnable, 1800); //1800 is the timeout for the splash
+        userName = (EditText) findViewById(R.id.et_username);
+        passWord = (EditText) findViewById(R.id.et_password);
+        register = (Button) findViewById(R.id.btn_register);
+        login = (Button) findViewById(R.id.btn_login);
+        forgotPass = (Button) findViewById(R.id.btn_resetPassword);
+        coachLogin=(CheckBox) findViewById(R.id.cb_coachLogin);
+        accountType = "athletes";
+        firestore = FirebaseFirestore.getInstance();
+
+    }
+
+    public void turn_on_night_mode()
+    {
+        if(x.get_lights_on()==true)
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        }
+        else
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        }
     }
 }

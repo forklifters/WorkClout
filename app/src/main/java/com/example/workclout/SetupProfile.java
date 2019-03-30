@@ -5,6 +5,7 @@ import android.provider.Contacts;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +30,15 @@ public class SetupProfile extends AppCompatActivity {
     private String databaseBio, databaseName,databaseAge,databaseHeight,databaseWeight,databaseGender;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
+    private helperClass x =new helperClass();
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_setup_profile);
         firestoreoreupdate = FirebaseFirestore.getInstance();
 
@@ -47,10 +51,9 @@ public class SetupProfile extends AppCompatActivity {
         fullName = (EditText) findViewById(R.id.FullNameID);
         gender=(EditText) findViewById(R.id.GenderID);
         setup = (Button) findViewById(R.id.ProfileID);
-        Bundle getBundle= new Bundle();
-        getBundle=getIntent().getExtras();
-        UId =getBundle.getString("userID");
-        loginType=getBundle.getString("accountType");
+
+        UId =x.get_user_id();
+        loginType=x.get_login_type();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
 
         setup.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +86,6 @@ public class SetupProfile extends AppCompatActivity {
 
                 update();
                 Intent loginSuccess = new Intent(SetupProfile.this, Settings.class);
-                loginSuccess.putExtra("userID", UId);
-                loginSuccess.putExtra("accountType", loginType);
                 startActivity(loginSuccess);
 
 
@@ -107,14 +108,23 @@ public class SetupProfile extends AppCompatActivity {
 
                 }
 
-
-                public void move()
+                public void night_mode()
                 {
-                    Intent testing = new Intent(SetupProfile.this, Settings.class);
-                    testing.putExtra("userID", UId);
-                    testing.putExtra("accountType", loginType);
-                    startActivity(testing);
+                    if(x.get_lights_on()==true)
+                    {
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+
+                    }
+                    else
+                    {
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                    }
                 }
+
+
+
 }
 
 

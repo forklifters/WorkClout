@@ -33,6 +33,7 @@ public class Registration extends AppCompatActivity {
     private CheckBox coachCheck;
     private DocumentReference setUPRef;
     private FirebaseFirestore mFirestore;
+    public helperClass x = new helperClass();
 
 
     /*****************************************************
@@ -97,7 +98,8 @@ public class Registration extends AppCompatActivity {
                     if (coachCheck.isChecked()) {
                         loginType = "coaches";
                     }
-
+                    x.set_user_id(UId);
+                    x.set_login_type(loginType);
 
                     mFirestore.collection(loginType).document(UId).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -105,8 +107,6 @@ public class Registration extends AppCompatActivity {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
 
                             Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
-                            loginSuccess.putExtra("userID", UId);
-                            loginSuccess.putExtra("accountType", loginType);
                             startActivity(loginSuccess);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -143,10 +143,18 @@ public class Registration extends AppCompatActivity {
             return false;
         }
 
-    /*if (!password.matches("[^\\w\\s*]+")) {
-           Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
+
+        if(!password.contains("!") && !password.contains("@") && !password.contains("#") && !password.contains("$") && !password.contains("%")
+         && !password.contains("^") && !password.contains("&") && !password.contains("*") && !password.contains("(") && !password.contains(")")
+            && !password.contains("-") && !password.contains("_") && !password.contains("+") && !password.contains("=")
+                &&!password.contains("/") && !password.contains("?") && !password.contains("<") && !password.contains(">")
+                    && !password.contains("{") && !password.contains("}"))
+        {
+            Toast.makeText(Registration.this, "Must contain a special character", Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
+
+
 
         if (password.length() < 6) {
             Toast.makeText(Registration.this, "Must be at least 6 characters long" , Toast.LENGTH_SHORT).show();
