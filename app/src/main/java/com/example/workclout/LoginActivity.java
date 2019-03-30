@@ -141,8 +141,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (emailInput.equals(databaseEmail) && passWordInput.equals(databasePassWord)) {
                                 Toast.makeText(LoginActivity.this, "You're Logged In", Toast.LENGTH_SHORT).show();
 
-                                Intent homePageSwitch = new Intent(LoginActivity.this, HomePage.class);
-                                startActivity(homePageSwitch);
+                                Intent homePage = new Intent(LoginActivity.this, HomePage.class);
+                                homePage.putExtra("userID", userID);
+                                homePage.putExtra("accountType", accountType);
+                                startActivity(homePage);
                             }
                             else {
                                 Toast.makeText(LoginActivity.this, "Failed to Connect Login", Toast.LENGTH_SHORT).show();
