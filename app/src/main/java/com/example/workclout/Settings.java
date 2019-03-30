@@ -51,6 +51,7 @@ public class Settings extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -310,8 +311,18 @@ public class Settings extends AppCompatActivity
         UId = UId + digit;     //adds two parts together
 
         return UId;
+    }
 
-
+    public void night_mode()
+    {
+        if(x.get_lights_on()==true)
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

@@ -25,11 +25,9 @@ public class SetupProfile extends AppCompatActivity {
     private helperClass x =new helperClass();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_setup_profile);
         firestoreoreupdate = FirebaseFirestore.getInstance();
@@ -81,9 +79,6 @@ public class SetupProfile extends AppCompatActivity {
                 startActivity(loginSuccess);
 
 
-
-
-
             }
         });
 
@@ -99,24 +94,6 @@ public class SetupProfile extends AppCompatActivity {
 
 
                 }
-
-                public void night_mode()
-                {
-                    if(x.get_lights_on()==true)
-                    {
-                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-
-                    }
-                    else
-                    {
-                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-                    }
-                }
-
-
-
 }
 
 
