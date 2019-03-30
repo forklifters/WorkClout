@@ -10,12 +10,13 @@
 
     <Button
         android:id="@+id/ResetPassWordID"
-        android:layout_width="wrap_content"
+        android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Reset Password"
+        android:background="@drawable/btn_bg_main"
         app:layout_constraintBottom_toTopOf="@+id/resetPassWordInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -23,15 +24,15 @@
 
     <Button
         android:id="@+id/DeleteID"
-        android:layout_width="wrap_content"
+        android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="128dp"
+        android:background="@drawable/btn_bg_main"
         android:text="Delete Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -44,6 +45,9 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:background="@drawable/et_bg_main"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         app:layout_constraintBottom_toTopOf="@+id/DeleteID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -52,11 +56,14 @@
         android:id="@+id/resetEmailInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/et_bg_main"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/ResetPassWordID"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,27 +71,28 @@
 
     <Button
         android:id="@+id/ResetEmailID"
-        android:layout_width="wrap_content"
+        android:layout_width="149dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Change Email"
+        android:background="@drawable/btn_bg_main"
         app:layout_constraintBottom_toTopOf="@+id/resetEmailInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Switch
+    <CheckBox
         android:id="@+id/sw_nightmode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
-        android:text="Nightmode"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="nightmode"
         app:layout_constraintBottom_toTopOf="@+id/wifi_ID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
@@ -93,11 +101,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
-        android:text="Switch"
+        android:layout_marginBottom="24dp"
+        android:text="Wifi"
         app:layout_constraintBottom_toTopOf="@+id/notifications_ID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
@@ -106,8 +114,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Switch"
+        android:layout_marginBottom="32dp"
+        android:text="Notifications"
         app:layout_constraintBottom_toTopOf="@+id/ResetEmailID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

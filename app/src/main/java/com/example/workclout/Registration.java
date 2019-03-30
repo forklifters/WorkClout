@@ -106,7 +106,7 @@ public class Registration extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(Registration.this, "Username added", Toast.LENGTH_SHORT).show();
 
-                            Intent loginSuccess = new Intent(Registration.this, SetupProfile.class);
+                            Intent loginSuccess = new Intent(Registration.this, Profile.class);
                             startActivity(loginSuccess);
                         }
                     }).addOnFailureListener(new OnFailureListener() {

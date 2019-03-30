@@ -18,7 +18,6 @@ import android.view.MenuItem;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //private Switch nightmode;
     private helperClass x =new helperClass();
 
     @Override
@@ -27,7 +26,6 @@ public class HomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         night_mode();
-        setUpVariables();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,10 +66,6 @@ public class HomePage extends AppCompatActivity
 
     }
 
-    public void setUpVariables() {
-        //nightmode=(Switch) findViewById(R.id.sw_nightmode);
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -98,7 +92,7 @@ public class HomePage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent settings = new Intent(HomePage.this, Settings.class);
+            Intent settings = new Intent(HomePage.this, HomePage.class);
             startActivity(settings);
             return true;
         }
@@ -122,11 +116,14 @@ public class HomePage extends AppCompatActivity
             Intent settings = new Intent(HomePage.this, Settings.class);
             startActivity(settings);
         } else if (id == R.id.nav_profile) {
-            Intent profileView = new Intent(HomePage.this, SetupProfile.class);
+            Intent profileView = new Intent(HomePage.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
             Intent leaderboards = new Intent(HomePage.this, Registration.class);
             startActivity(leaderboards);
+        } else if (id == R.id.nav_home) {
+            Intent home = new Intent(HomePage.this, HomePage.class);
+            startActivity(home);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

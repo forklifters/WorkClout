@@ -91,8 +91,6 @@ public class SetupProfile extends AppCompatActivity {
                     setUPRef.update("height", heightInput);
                     setUPRef.update("weight", weightInput);
                     Toast.makeText(SetupProfile.this, "Your profile is updated",Toast.LENGTH_SHORT).show();
-
-
                 }
 }
 

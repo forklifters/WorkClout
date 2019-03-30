@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -41,7 +42,8 @@ public class Settings extends AppCompatActivity
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch nightmode, wifi, notifications;
+    private Switch wifi, notifications;
+    private CheckBox nightmode;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
@@ -76,12 +78,8 @@ public class Settings extends AppCompatActivity
         UId =x.get_user_id();
         loginType=x.get_login_type();
         setUpVariables();
-        Toast.makeText(Settings.this, "Your " + UId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(Settings.this, "Your " + loginType, Toast.LENGTH_SHORT).show();
         firestoreoreupdate = FirebaseFirestore.getInstance();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
-        //fuck me nothing fucking works
-        Toast.makeText(Settings.this, "Your login and id" + loginType + UId, Toast.LENGTH_SHORT).show();
         wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -268,11 +266,14 @@ public class Settings extends AppCompatActivity
             Intent settings = new Intent(Settings.this, Settings.class);
             startActivity(settings);
         } else if (id == R.id.nav_profile) {
-            Intent profileView = new Intent(Settings.this, SetupProfile.class);
+            Intent profileView = new Intent(Settings.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
             Intent leaderboards = new Intent(Settings.this, Registration.class);
             startActivity(leaderboards);
+        } else if (id == R.id.nav_home) {
+            Intent home = new Intent(Settings.this, HomePage.class);
+            startActivity(home);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -281,7 +282,7 @@ public class Settings extends AppCompatActivity
     }
 
     public void setUpVariables() {
-        nightmode=(Switch) findViewById(R.id.sw_nightmode);
+        nightmode=(CheckBox) findViewById(R.id.sw_nightmode);
         wifi=(Switch)findViewById(R.id.wifi_ID);
         notifications=(Switch)findViewById(R.id.notifications_ID);
         resetPassWord = (Button) findViewById(R.id.ResetPassWordID);
