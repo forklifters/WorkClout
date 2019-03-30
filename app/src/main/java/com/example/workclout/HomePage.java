@@ -17,15 +17,8 @@ import android.view.MenuItem;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String UId, loginType;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Bundle getBundle = new Bundle();
-        getBundle = getIntent().getExtras();
-        UId = getBundle.getString("userID");
-        loginType = getBundle.getString("accountType");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -77,6 +70,8 @@ public class HomePage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(HomePage.this, Settings.class);
+            startActivity(settings);
             return true;
         }
 
@@ -97,13 +92,9 @@ public class HomePage extends AppCompatActivity
             startActivity(teams);
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(HomePage.this, Settings.class);
-            settings.putExtra("userID", UId);
-            settings.putExtra("accountType", loginType);
             startActivity(settings);
         } else if (id == R.id.nav_profile) {
             Intent profileView = new Intent(HomePage.this, SetupProfile.class);
-            profileView.putExtra("userID", UId);
-            profileView.putExtra("accountType", loginType);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
             Intent leaderboards = new Intent(HomePage.this, Registration.class);
