@@ -7,6 +7,18 @@ public class helperClass
     public static String user_id;
     public static String login_type;
     public static boolean turn_on;
+    public static boolean notification;
+
+    public void set_notifications_on(boolean values)
+    {
+        notification=values;
+    }
+
+    public boolean get_notifications_on()
+    {
+        return notification;
+    }
+
     public void set_user_id(String id)
     {
         user_id=id;
