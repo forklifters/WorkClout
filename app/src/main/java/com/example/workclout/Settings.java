@@ -1,6 +1,8 @@
 package com.example.workclout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,29 +27,47 @@ import java.util.Map;
 
 
 public class Settings extends AppCompatActivity {
-    private String UId, loginType, resetPassWordVal, resetEmailVal;
+    private String UId, loginType, resetPassWordVal, resetEmailVal, resetUserName;
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch nightmode;
+    private Switch nightmode, wifi, notifications;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
+    private helperClass x =new helperClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Bundle getBundle = new Bundle();
-        getBundle = getIntent().getExtras();
-        UId = getBundle.getString("userID");
-        loginType = getBundle.getString("accountType");
+        UId =x.get_user_id();
+        loginType=x.get_login_type();
         setUpVairables();
         Toast.makeText(Settings.this, "Your " + UId, Toast.LENGTH_SHORT).show();
         Toast.makeText(Settings.this, "Your " + loginType, Toast.LENGTH_SHORT).show();
         firestoreoreupdate = FirebaseFirestore.getInstance();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
         //fuck me nothing fucking works
+        Toast.makeText(Settings.this, "Your login and id" + loginType + UId, Toast.LENGTH_SHORT).show();
+        wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+                    wifi.setWifiEnabled(false);
+                    Toast.makeText(Settings.this, "Your wifi is on" , Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+                    wifi.setWifiEnabled(true);
+                    Toast.makeText(Settings.this, "Your wifi is off" , Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
         nightmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -55,13 +75,17 @@ public class Settings extends AppCompatActivity {
                 if(isChecked)
                 {
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    x.set_lights_on(true);
+
                 }
                 else
                 {
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    x.set_lights_on(false);
                 }
             }
         });
+
 
         resetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +94,7 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
+
                             databaseName = documentSnapshot.getString("Name");
                             databaseBio = documentSnapshot.getString("bio");
                             databaseGender = documentSnapshot.getString("gender");
@@ -77,6 +102,14 @@ public class Settings extends AppCompatActivity {
                             databaseHeight = documentSnapshot.getString("height");
                             databaseWeight = documentSnapshot.getString("weight");
                             databasePassword = documentSnapshot.getString("password");
+                            Toast.makeText(Settings.this, "Your fucked bitch1" + databaseName, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch2" + databaseBio, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch3" + databaseGender, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch4" + databaseAge, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch5" + databaseHeight, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch6" + databaseWeight, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Settings.this, "Your fucked bitch7" + databasePassword, Toast.LENGTH_SHORT).show();
+
 
                         }
                         else
@@ -85,11 +118,15 @@ public class Settings extends AppCompatActivity {
                         }
                     }
                 });
+
+                resetEmailVal=resetEmailInput.getText().toString();
+                resetUserName=createUserId(resetEmailVal);
+
                 Map<String, String> dataToAdd = new HashMap<>();
 
-                dataToAdd.put("email", null);
+                dataToAdd.put("email", resetEmailVal);
                 dataToAdd.put("password", databasePassword);
-                dataToAdd.put("username", null);
+                dataToAdd.put("username", resetUserName);
                 dataToAdd.put("full name", databaseName);
                 dataToAdd.put("bio", databaseBio);
                 dataToAdd.put("gender", databaseGender);
@@ -98,9 +135,11 @@ public class Settings extends AppCompatActivity {
                 dataToAdd.put("weight", databaseWeight);
 
 
-                //fix input to email
-                resetEmailVal = resetEmailInput.getText().toString().trim();
-                setUPRef2 = firestoreoreupdate.collection(loginType).document((createUserId(resetEmailVal)));
+
+
+                Toast.makeText(Settings.this, "Your fucked" + resetEmailVal, Toast.LENGTH_SHORT).show();
+
+                setUPRef2 = firestoreoreupdate.collection(loginType).document(resetUserName);
                 setUPRef2.set(dataToAdd)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -116,7 +155,9 @@ public class Settings extends AppCompatActivity {
                                 setUPRef2.update("weight", databaseWeight);
 
 
+
                             }
+
                         });
                 setUPRef.delete();
                 setUPRef = setUPRef2;
@@ -148,6 +189,8 @@ public class Settings extends AppCompatActivity {
 
     public void setUpVairables() {
         nightmode=(Switch) findViewById(R.id.switchID);
+        wifi=(Switch)findViewById(R.id.wifi_ID);
+        notifications=(Switch)findViewById(R.id.notifications_ID);
         resetPassWord = (Button) findViewById(R.id.ResetPassWordID);
         resetEmail = (Button) findViewById(R.id.ResetEmailID);
         deleteAccount = (Button) findViewById(R.id.DeleteID);

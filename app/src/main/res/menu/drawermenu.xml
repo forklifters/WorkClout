@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/db" android:title="Challenges" />
-    <item android:id="@+id/leaderboards" android:title="Leaderboards" />
-    <item android:id="@+id/teams" android:title="Teams" />
-    <item android:id="@+id/profile" android:title="Profile" />
-    <item android:id="@+id/settings" android:title="Settings" />
+    <item android:id="@+id/item_Challenges" android:title="Challenges" />
+    <item android:id="@+id/item_Leaderboards" android:title="Leaderboards" />
+    <item android:id="@+id/item_Teams" android:title="Teams" />
+    <item android:id="@+id/item_Profile" android:title="Profile" />
+    <item android:id="@+id/item_Settings" android:title="Settings" />
 </menu>
