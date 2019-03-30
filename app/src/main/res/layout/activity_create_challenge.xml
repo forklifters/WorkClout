@@ -34,8 +34,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Title"
         android:inputType="text"
-        android:text="Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_chname" />
 
@@ -56,8 +56,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="(1-7)"
         android:inputType="number"
-        android:text="(1-7)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_chlength" />
 
@@ -77,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="(1-5)"
         android:inputType="number"
-        android:text="(1-5)"
         app:layout_constraintStart_toStartOf="@+id/tv_chdiff"
         app:layout_constraintTop_toBottomOf="@+id/tv_chdiff" />
 
@@ -99,8 +99,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="Description"
         android:inputType="text"
-        android:text="Description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_chdesc" />
 
@@ -108,9 +108,58 @@
         android:id="@+id/createChallengeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="212dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginBottom="28dp"
         android:text="Create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Activity_1ID"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Activity 1"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="320dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="You Can Enter Up To 5 Activities For A Challange "
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/challengeDescription" />
+
+    <EditText
+        android:id="@+id/Activity_2ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Activity 2"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Activity_1ID" />
+
+    <EditText
+        android:id="@+id/Activity_3ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Activity 3"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Activity_2ID" />
 </android.support.constraint.ConstraintLayout>
