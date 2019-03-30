@@ -24,7 +24,7 @@ public class Invitetochallenge extends AppCompatActivity {
     public void set_up_variables()
     {
         firestore = FirebaseFirestore.getInstance();
-        inviteRef=firestore.collection("Challenges").document()
+        inviteRef=firestore.collection("Challenges").document();
         person1=(EditText) findViewById(R.id.Player_1ID);
         person2=(EditText) findViewById(R.id.Player_2ID);
         person3=(EditText) findViewById(R.id.Player_3ID);
