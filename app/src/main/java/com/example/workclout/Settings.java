@@ -3,12 +3,22 @@ package com.example.workclout;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -25,13 +35,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+public class Settings extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-public class Settings extends AppCompatActivity {
     private String UId, loginType, resetPassWordVal, resetEmailVal, resetUserName;
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch nightmode, wifi, notifications;
+    private Switch wifi, notifications;
+    private CheckBox nightmode;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
@@ -41,15 +53,33 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        night_mode();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         UId =x.get_user_id();
         loginType=x.get_login_type();
-        setUpVairables();
-        Toast.makeText(Settings.this, "Your " + UId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(Settings.this, "Your " + loginType, Toast.LENGTH_SHORT).show();
+        setUpVariables();
         firestoreoreupdate = FirebaseFirestore.getInstance();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
-        //fuck me nothing fucking works
-        Toast.makeText(Settings.this, "Your login and id" + loginType + UId, Toast.LENGTH_SHORT).show();
         wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -187,8 +217,72 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void setUpVairables() {
-        nightmode=(Switch) findViewById(R.id.switchID);
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent home = new Intent(Settings.this, HomePage.class);
+            startActivity(home);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_challenges) {
+            Intent challenges = new Intent(Settings.this, Challenges.class);
+            startActivity(challenges);
+        } else if (id == R.id.nav_teams) {
+            Intent teams = new Intent(Settings.this, Teams.class);
+            startActivity(teams);
+        } else if (id == R.id.nav_settings) {
+            Intent settings = new Intent(Settings.this, Settings.class);
+            startActivity(settings);
+        } else if (id == R.id.nav_profile) {
+            Intent profileView = new Intent(Settings.this, Profile.class);
+            startActivity(profileView);
+        } else if (id == R.id.nav_leaderboards) {
+            Intent leaderboards = new Intent(Settings.this, Leaderboard.class);
+            startActivity(leaderboards);
+        } else if (id == R.id.nav_home) {
+            Intent home = new Intent(Settings.this, HomePage.class);
+            startActivity(home);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public void setUpVariables() {
+        nightmode=(CheckBox) findViewById(R.id.sw_nightmode);
         wifi=(Switch)findViewById(R.id.wifi_ID);
         notifications=(Switch)findViewById(R.id.notifications_ID);
         resetPassWord = (Button) findViewById(R.id.ResetPassWordID);
@@ -218,9 +312,18 @@ public class Settings extends AppCompatActivity {
         UId = UId + digit;     //adds two parts together
 
         return UId;
-
-
     }
 
+    public void night_mode()
+    {
+        if(x.get_lights_on()==true)
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 
 }
