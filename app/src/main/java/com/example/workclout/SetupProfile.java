@@ -55,6 +55,36 @@ public class SetupProfile extends AppCompatActivity {
         UId =x.get_user_id();
         loginType=x.get_login_type();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
+        setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                databaseName = documentSnapshot.getString("Name");
+                databaseBio = documentSnapshot.getString("bio");
+                databaseGender = documentSnapshot.getString("gender");
+                databaseAge = documentSnapshot.getString("age");
+                databaseHeight = documentSnapshot.getString("height");
+                databaseWeight = documentSnapshot.getString("weight");
+                if(databaseName==null && databaseBio== null && databaseGender==null && databaseAge== null  && databaseHeight== null && databaseWeight== null)
+                {
+                    fullName.setHint("full name is");
+                    bio.setHint("bio");
+                    gender.setHint("gender");
+                    age.setHint("age");
+                    height.setHint("height in ft" );
+                    weight.setHint("weight in lbs" );
+
+                }
+                else {
+                    fullName.setHint("full name is " + databaseName);
+                    bio.setHint("full bio is " + databaseBio);
+                    gender.setHint("gender is " + databaseGender);
+                    age.setHint("age is " + databaseAge);
+                    height.setHint("height is " + databaseName);
+                    weight.setHint("weight is " + databaseName);
+                }
+
+            }
+        });
 
         setup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,24 +95,7 @@ public class SetupProfile extends AppCompatActivity {
                 heightInput=height.getText().toString().trim();
                 weightInput =weight.getText().toString().trim();
                 genderInput=gender.getText().toString().trim();
-                setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        databaseName = documentSnapshot.getString("Name");
-                        databaseBio = documentSnapshot.getString("bio");
-                        databaseGender = documentSnapshot.getString("gender");
-                        databaseAge = documentSnapshot.getString("age");
-                        databaseHeight = documentSnapshot.getString("height");
-                        databaseWeight = documentSnapshot.getString("weight");
-                        fullName.setHint(databaseName);
-                        bio.setHint(databaseBio);
-                        gender.setHint(databaseGender);
-                        age.setHint(databaseAge);
-                        height.setHint(databaseName);
-                        weight.setHint(databaseName);
 
-                    }
-                });
 
                 update();
                 Intent loginSuccess = new Intent(SetupProfile.this, Settings.class);
