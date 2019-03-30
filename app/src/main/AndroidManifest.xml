@@ -15,9 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Teams"
+            android:label="@string/title_activity_teams"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Leaderboard"
+            android:label="@string/title_activity_leaderboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Challenges"
             android:label="@string/title_activity_challenges"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"

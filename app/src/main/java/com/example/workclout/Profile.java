@@ -177,7 +177,7 @@ public class Profile extends AppCompatActivity
             Intent challenges = new Intent(Profile.this, Challenges.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(Profile.this, Registration.class);
+            Intent teams = new Intent(Profile.this, Teams.class);
             startActivity(teams);
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Profile.this, Settings.class);
@@ -186,7 +186,7 @@ public class Profile extends AppCompatActivity
             Intent profileView = new Intent(Profile.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
-            Intent leaderboards = new Intent(Profile.this, Registration.class);
+            Intent leaderboards = new Intent(Profile.this, Leaderboard.class);
             startActivity(leaderboards);
         } else if (id == R.id.nav_home) {
             Intent home = new Intent(Profile.this, HomePage.class);

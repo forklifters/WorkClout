@@ -100,7 +100,7 @@ public class Challenges extends AppCompatActivity
             Intent profileView = new Intent(Challenges.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
-            Intent leaderboards = new Intent(Challenges.this, Registration.class);
+            Intent leaderboards = new Intent(Challenges.this, Leaderboard.class);
             startActivity(leaderboards);
         } else if (id == R.id.nav_home) {
             Intent home = new Intent(Challenges.this, HomePage.class);

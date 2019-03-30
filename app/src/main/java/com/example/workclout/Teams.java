@@ -15,16 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HomePage extends AppCompatActivity
+public class Teams extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private helperClass x =new helperClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_teams);
         night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,24 +45,6 @@ public class HomePage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        nightmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked)
-//                {
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    x.set_lights_on(true);
-//
-//                }
-//                else
-//                {
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    x.set_lights_on(false);
-//                }
-//            }
-//        });
-
     }
 
     @Override
@@ -79,7 +60,7 @@ public class HomePage extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_page, menu);
+        getMenuInflater().inflate(R.menu.teams, menu);
         return true;
     }
 
@@ -92,7 +73,7 @@ public class HomePage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent settings = new Intent(HomePage.this, HomePage.class);
+            Intent settings = new Intent(Teams.this, HomePage.class);
             startActivity(settings);
             return true;
         }
@@ -107,22 +88,22 @@ public class HomePage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(HomePage.this, Challenges.class);
+            Intent challenges = new Intent(Teams.this, Challenges.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(HomePage.this, Teams.class);
+            Intent teams = new Intent(Teams.this, Teams.class);
             startActivity(teams);
         } else if (id == R.id.nav_settings) {
-            Intent settings = new Intent(HomePage.this, Settings.class);
+            Intent settings = new Intent(Teams.this, Settings.class);
             startActivity(settings);
         } else if (id == R.id.nav_profile) {
-            Intent profileView = new Intent(HomePage.this, Profile.class);
+            Intent profileView = new Intent(Teams.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
-            Intent leaderboards = new Intent(HomePage.this, Leaderboard.class);
+            Intent leaderboards = new Intent(Teams.this, Leaderboard.class);
             startActivity(leaderboards);
         } else if (id == R.id.nav_home) {
-            Intent home = new Intent(HomePage.this, HomePage.class);
+            Intent home = new Intent(Teams.this, HomePage.class);
             startActivity(home);
         }
 
@@ -142,4 +123,5 @@ public class HomePage extends AppCompatActivity
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+
 }

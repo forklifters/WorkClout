@@ -260,7 +260,7 @@ public class Settings extends AppCompatActivity
             Intent challenges = new Intent(Settings.this, Challenges.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(Settings.this, Registration.class);
+            Intent teams = new Intent(Settings.this, Teams.class);
             startActivity(teams);
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Settings.this, Settings.class);
@@ -269,7 +269,7 @@ public class Settings extends AppCompatActivity
             Intent profileView = new Intent(Settings.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
-            Intent leaderboards = new Intent(Settings.this, Registration.class);
+            Intent leaderboards = new Intent(Settings.this, Leaderboard.class);
             startActivity(leaderboards);
         } else if (id == R.id.nav_home) {
             Intent home = new Intent(Settings.this, HomePage.class);
