@@ -10,3 +10,9 @@ When in the settings page, there is a button to delete your account. When you cl
 
 The test for this story was to login to an existing account and to then go to the settings page. Once at the settings page, I clicked on the delete account button. When sent to the login page, I re tried logging into the same account used previously and the account no longer exists.
 
+**Creating a new challenge (coach)**
+
+If you are a coach, you can go to a create challenge page. This page has fields that the user coach must fill out. They specify the difficulty, title, length, activities and description of the challenge. The user can then click a create button and the challenge will appear in the database. The coach has no access to the database and must fill out the create challenge form to create a challenge that appears in the database. The only functionality this page has is to create a challenge making it discrete.
+
+The tests for this create challenge is to log in to a coach account, go to the create challenge page and enter fields. The fields entered will vary testing for null and empty inputs as well as a regular challenge. 
+
