@@ -80,6 +80,19 @@ public class Settings extends AppCompatActivity
         setUpVariables();
         firestoreoreupdate = FirebaseFirestore.getInstance();
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
+
+        notifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    x.set_notifications_on(true);
+                }
+                else {
+                    x.set_notifications_on(false);
+                }
+            }
+        });
+
         wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
