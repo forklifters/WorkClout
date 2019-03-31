@@ -100,7 +100,7 @@ public class HomePage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(HomePage.this, Challenges.class);
+            Intent challenges = new Intent(HomePage.this, CreateChallenge.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(HomePage.this, Teams.class);
