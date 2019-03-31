@@ -100,12 +100,12 @@ public class Profile extends AppCompatActivity
                 databaseAge = documentSnapshot.getString("age");
                 databaseHeight = documentSnapshot.getString("height");
                 databaseWeight = documentSnapshot.getString("weight");
-                fullName.setHint(databaseName);
-                bio.setHint(databaseBio);
-                gender.setHint(databaseGender);
-                age.setHint(databaseAge);
-                height.setHint(databaseHeight);
-                weight.setHint(databaseWeight);
+                fullName.setText(databaseName);
+                bio.setText(databaseBio);
+                gender.setText(databaseGender);
+                age.setText(databaseAge);
+                height.setText(databaseHeight);
+                weight.setText(databaseWeight);
 
             }
         });
@@ -120,7 +120,7 @@ public class Profile extends AppCompatActivity
                 genderInput=gender.getText().toString().trim();
 
                 update();
-                Intent loginSuccess = new Intent(Profile.this, Settings.class);
+                Intent loginSuccess = new Intent(Profile.this, Profile.class);
                 startActivity(loginSuccess);
             }
         });
