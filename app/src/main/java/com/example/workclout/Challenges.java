@@ -1,5 +1,6 @@
 package com.example.workclout;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +15,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Challenges extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private helperClass x =new helperClass();
+    private ListView challengeList;
+    private ArrayAdapter<String> arrayAdapter;
+    private FirebaseFirestore firestore;
+    private DocumentReference loginRef;
+
+    private String dataset[] = {"data", "data", "data", "data", "data", "data"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +59,33 @@ public class Challenges extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        challengeList = findViewById(R.id.lv_challenges);
+        arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, dataset);
+        challengeList.setAdapter(arrayAdapter);
+        challengeList.setOnItemClickListener(items);
+
+
     }
+
+    private AdapterView.OnItemClickListener items = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            TextView tvTemp = ((TextView) view);
+
+            String tempYeet;
+
+            firestore.collection("challenges");
+
+            dataset[position] = "TODO: Document Name";
+            tvTemp.setText(dataset[position]);
+
+            arrayAdapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -88,7 +128,7 @@ public class Challenges extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(Challenges.this, Challenges.class);
+            Intent challenges = new Intent(Challenges.this, CreateChallenge.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(Challenges.this, Registration.class);
