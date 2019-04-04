@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateChallengeActivity extends AppCompatActivity
+public class CreateChallenge extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText challengeT, challengeDif, challengeL, challengeDes, activity_1, activity_2,activity_3;
@@ -47,6 +48,8 @@ public class CreateChallengeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_challenge);
+
+        night_mode();
 
         challengeT=findViewById(R.id.et_challengeTitle);
         challengeDif=findViewById(R.id.challengeDifficulty);
@@ -109,9 +112,9 @@ public class CreateChallengeActivity extends AppCompatActivity
                 mFirestore.collection("challenges").document(challengeID).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(CreateChallengeActivity.this, "Username added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateChallenge.this, "Username added", Toast.LENGTH_SHORT).show();
                         mFirestore.collection("Coaches").document(UID).update(challengeID,challengeID);
-                        Intent loginSuccess = new Intent(CreateChallengeActivity.this, HomePage.class);
+                        Intent loginSuccess = new Intent(CreateChallenge.this, HomePage.class);
                         startActivity(loginSuccess);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -119,7 +122,7 @@ public class CreateChallengeActivity extends AppCompatActivity
                     public void onFailure(@NonNull Exception e) {
                         String error = e.getMessage();
 
-                        Toast.makeText(CreateChallengeActivity.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateChallenge.this, "Error : " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -165,27 +168,39 @@ public class CreateChallengeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(CreateChallengeActivity.this, CreateChallengeActivity.class);
+            Intent challenges = new Intent(CreateChallenge.this, CreateChallenge.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(CreateChallengeActivity.this, Teams.class);
+            Intent teams = new Intent(CreateChallenge.this, Teams.class);
             startActivity(teams);
         } else if (id == R.id.nav_settings) {
-            Intent settings = new Intent(CreateChallengeActivity.this, Settings.class);
+            Intent settings = new Intent(CreateChallenge.this, Settings.class);
             startActivity(settings);
         } else if (id == R.id.nav_profile) {
-            Intent profileView = new Intent(CreateChallengeActivity.this, Profile.class);
+            Intent profileView = new Intent(CreateChallenge.this, Profile.class);
             startActivity(profileView);
         } else if (id == R.id.nav_leaderboards) {
-            Intent leaderboards = new Intent(CreateChallengeActivity.this, Leaderboard.class);
+            Intent leaderboards = new Intent(CreateChallenge.this, Leaderboard.class);
             startActivity(leaderboards);
         } else if (id == R.id.nav_home) {
-            Intent home = new Intent(CreateChallengeActivity.this, HomePage.class);
+            Intent home = new Intent(CreateChallenge.this, HomePage.class);
             startActivity(home);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void night_mode()
+    {
+        if(x.get_lights_on()==true)
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else
+        {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

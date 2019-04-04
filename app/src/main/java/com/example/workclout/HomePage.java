@@ -1,10 +1,6 @@
 package com.example.workclout;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,9 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -100,7 +93,7 @@ public class HomePage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(HomePage.this, CreateChallengeActivity.class);
+            Intent challenges = new Intent(HomePage.this, CreateChallenge.class);
             startActivity(challenges);
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(HomePage.this, Teams.class);
