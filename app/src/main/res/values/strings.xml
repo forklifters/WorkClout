@@ -27,6 +27,6 @@
     <string name="title_activity_challenges">Challenges</string>
     <string name="title_activity_leaderboard">Leaderboard</string>
     <string name="title_activity_teams">Teams</string>
-    <string name="title_activity_create_challenge">CreateChallengeActivity</string>
+    <string name="title_activity_create_challenge">Create Challenge</string>
 
 </resources>
