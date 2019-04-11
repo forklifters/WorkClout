@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,16 +24,55 @@ import android.widget.TextView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Challenges extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private helperClass x =new helperClass();
-    private ListView challengeList;
-    private ArrayAdapter<String> arrayAdapter;
+    //Recycler things------------------------------------
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    private void initImageBitmaps(){
+        mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
+        mNames.add("Dude Chillin");
+
+        mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
+        mNames.add("Lady Chillin");
+
+        mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
+        mNames.add("Weights Pushup");
+
+        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
+        mNames.add("Plank");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+
+        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
+        mNames.add("Running");
+
+        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
+        mNames.add("Deadlift");
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+    //---------------------------------------------------
     private FirebaseFirestore firestore;
     private DocumentReference loginRef;
 
-    private String dataset[] = {"data", "data", "data", "data", "data", "data"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +81,10 @@ public class Challenges extends AppCompatActivity
         night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Recycler things----------------------------------------------------
+        initImageBitmaps();
+        //-------------------------------------------------------------------
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,31 +105,7 @@ public class Challenges extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        challengeList = findViewById(R.id.lv_challenges);
-        arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, dataset);
-        challengeList.setAdapter(arrayAdapter);
-        challengeList.setOnItemClickListener(items);
-
-
     }
-
-    private AdapterView.OnItemClickListener items = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            TextView tvTemp = ((TextView) view);
-
-            String tempYeet;
-
-            firestore.collection("challenges");
-
-            dataset[position] = "TODO: Document Name";
-            tvTemp.setText(dataset[position]);
-
-            arrayAdapter.notifyDataSetChanged();
-        }
-    };
 
     @Override
     public void onBackPressed() {
@@ -153,7 +174,7 @@ public class Challenges extends AppCompatActivity
 
     public void night_mode()
     {
-        if(x.get_lights_on()==true)
+        if(x.get_lights_on())
         {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }

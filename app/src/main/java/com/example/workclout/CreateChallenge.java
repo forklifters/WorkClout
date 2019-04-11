@@ -112,7 +112,7 @@ public class CreateChallenge extends AppCompatActivity
                 mFirestore.collection("challenges").document(challengeID).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(CreateChallenge.this, "Username added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateChallenge.this, "Challenge created", Toast.LENGTH_SHORT).show();
                         mFirestore.collection("Coaches").document(UID).update(challengeID,challengeID);
                         Intent loginSuccess = new Intent(CreateChallenge.this, HomePage.class);
                         startActivity(loginSuccess);
