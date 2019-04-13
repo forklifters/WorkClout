@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Verify extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class Verify extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: logic for resending verify code here
+
+                Toast.makeText(Verify.this, "Code sent", Toast.LENGTH_SHORT).show();
             }
         });
 
