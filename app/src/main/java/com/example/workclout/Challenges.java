@@ -42,37 +42,31 @@ public class Challenges extends AppCompatActivity
     //Recycler things------------------------------------
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
-    private List<String> randomStudentList = new ArrayList<>();
-
 
     private void initImageBitmaps(){
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference challengesCollectionReference = rootRef.collection("challenges");
-
-
         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
-        mNames.add(randomStudentList.get(0));
+        mNames.add("Dude chillin");
 
         mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
-        mNames.add(randomStudentList.get(1));
+        mNames.add("Lady chillin");
 
         mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
-        mNames.add(randomStudentList.get(2));
+        mNames.add("Pushup");
 
-//        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
-//        mNames.add("Plank");
-//
-//        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-//        mNames.add("Ropes");
-//
-//        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-//        mNames.add("Ropes");
-//
-//        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
-//        mNames.add("Running");
-//
-//        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
-//        mNames.add("Deadlift");
+        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
+        mNames.add("Plank");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+
+        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
+        mNames.add("Running");
+
+        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
+        mNames.add("Deadlift");
 
         initRecyclerView();
     }
