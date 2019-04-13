@@ -16,8 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Repeating"></activity>
-        <receiver android:name=".Notification_Reciever"/>
+        <activity
+            android:name=".CreateTeam"
+            android:label="@string/title_activity_create_team"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Repeating" />
+
+        <receiver android:name=".Notification_Reciever" />
+
         <activity
             android:name=".CreateChallenge"
             android:label="@string/title_activity_create_challenge"
