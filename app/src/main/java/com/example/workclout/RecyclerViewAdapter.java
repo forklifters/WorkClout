@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<Double> mDifficulties = new ArrayList<>();
     private Context mContext;
     private ArrayList<String> mChallengeIDs = new ArrayList<>();
+    private helperClass HC = new helperClass();
+
+    private FirebaseFirestore firestore;
 
     public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> descriptions, ArrayList<String> challengeIDs,
                                ArrayList<Double> length, ArrayList<Double> difficulty) {
@@ -39,6 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mChallengeIDs = challengeIDs;
         mLengths = length;
         mDifficulties = difficulty;
+        firestore = FirebaseFirestore.getInstance();
     }
     @NonNull
     @Override
@@ -65,7 +70,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
 
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
+                String userID = HC.get_user_id();
+
+                firestore.collection("athletes").document(userID).update("challenge1", mChallengeIDs.get(position));
+
+
+
+                Toast.makeText(mContext, "Registered for " + mImageNames.get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
