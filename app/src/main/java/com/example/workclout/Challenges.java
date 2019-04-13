@@ -49,28 +49,7 @@ public class Challenges extends AppCompatActivity
 
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference challengesCollectionReference = rootRef.collection("challenges");
-        challengesCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<String> challengeList = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String challengeName = document.toString();
-                        challengeList.add(challengeName);
-                    }
 
-                    int challengeCount = challengeList.size();
-                    int randomNumber = new Random().nextInt(challengeCount);
-
-
-                    for(int i = 1; i < 3; i++) {
-                        randomStudentList.add(challengeList.get(randomNumber));
-                    }
-                } else {
-                    Log.d(" ", "Error getting documents: ", task.getException());
-                }
-            }
-        });
 
         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
         mNames.add(randomStudentList.get(0));
