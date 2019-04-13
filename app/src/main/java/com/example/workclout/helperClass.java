@@ -9,6 +9,15 @@ public class helperClass
     public static int verification;
     public static boolean turn_on;
     public static boolean notification;
+    public static String email;
+
+    public void setEmail(String email) {
+        email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public void set_notifications_on(boolean values)
     {
