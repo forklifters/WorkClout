@@ -46,7 +46,6 @@ public class Challenges extends AppCompatActivity
 
 
     private void initImageBitmaps(){
-
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference challengesCollectionReference = rootRef.collection("challenges");
 
