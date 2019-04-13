@@ -2,14 +2,11 @@ package com.example.workclout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,26 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Challenges extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +37,8 @@ public class Challenges extends AppCompatActivity
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<String> mChallengeIDs = new ArrayList<>();
+    private ArrayList<Double> mLengths = new ArrayList<Double>();
+    private ArrayList<Double> mDifficulties = new ArrayList<Double>();
 
     private FirebaseFirestore firestore;
     private CollectionReference challengesRef;
@@ -56,6 +46,8 @@ public class Challenges extends AppCompatActivity
     private String cTitle;
     private String cDesc;
     private String cID;
+    private Double cLength;
+    private Double cDifficulty;
 
     private void initImageBitmaps() {
 
@@ -74,10 +66,14 @@ public class Challenges extends AppCompatActivity
                         cTitle = queryDocSnapshot.getString("title");
                         cDesc = queryDocSnapshot.getString("description");
                         cID = queryDocSnapshot.getString("challengeID");
+                        cLength = queryDocSnapshot.getDouble("length");
+                        cDifficulty = queryDocSnapshot.getDouble("difficulty");
                         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
                         mNames.add(cTitle);
                         mDescriptions.add(cDesc);
                         mChallengeIDs.add(cID);
+                        mLengths.add(cLength);
+                        mDifficulties.add(cDifficulty);
 
                     } else {
                         Toast.makeText(Challenges.this, "Failed to get challenge deets", Toast.LENGTH_SHORT);
@@ -94,7 +90,7 @@ public class Challenges extends AppCompatActivity
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs, mLengths, mDifficulties);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

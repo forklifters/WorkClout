@@ -186,47 +186,65 @@ public class HomePage extends AppCompatActivity
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mChallengeIDs = new ArrayList<>();
+    private ArrayList<Double> mLengths = new ArrayList<>();
+    private ArrayList<Double> mDifficulties = new ArrayList<>();
 
     private void initImageBitmaps(){
 
         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
         mNames.add("Dude chillin");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
         mNames.add("Lady chillin");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
         mNames.add("Pushup");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
         mNames.add("Plank");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
         mNames.add("Ropes");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
         mNames.add("Ropes");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
         mNames.add("Running");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
         mNames.add("Deadlift");
         mDescriptions.add("Stuff about challenge");
+        mLengths.add(3.0);
+        mDifficulties.add(4.0);
 
         initRecyclerView();
     }
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs, mLengths, mDifficulties);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
