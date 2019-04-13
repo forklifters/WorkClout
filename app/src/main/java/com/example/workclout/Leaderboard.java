@@ -97,8 +97,14 @@ public class Leaderboard extends AppCompatActivity
                 startActivity(challenges);
             }
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(Leaderboard.this, Teams.class);
-            startActivity(teams);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Leaderboard.this, CreateTeam.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Leaderboard.this, Teams.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Leaderboard.this, Settings.class);
             startActivity(settings);

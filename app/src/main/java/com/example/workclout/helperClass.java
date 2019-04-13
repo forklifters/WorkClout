@@ -6,8 +6,18 @@ public class helperClass
 {
     public static String user_id;
     public static String login_type;
+    public static int verification;
     public static boolean turn_on;
     public static boolean notification;
+    public static String email;
+
+    public void setEmail(String email) {
+        email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public void set_notifications_on(boolean values)
     {
@@ -46,5 +56,6 @@ public class helperClass
     {
         return turn_on;
     }
-
+    public void set_verification(int x) { verification=x; }
+    public int get_verification() { return verification;}
 }
