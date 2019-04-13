@@ -36,7 +36,7 @@ public class HomePage extends AppCompatActivity
     NotificationCompat.Builder notification;
     private static final int uniqueID = 68734;
 
-    private String UId, loginType, databaseAge, databaseUser;
+    private String UId, loginType, databaseUser, databaseClout;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private TextView clout, user;
@@ -74,8 +74,8 @@ public class HomePage extends AppCompatActivity
         setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                databaseAge = documentSnapshot.getString("age");
-                clout.setText("Clout: " + databaseAge);
+                databaseClout = documentSnapshot.getString("clout");
+                clout.setText("Clout: " + databaseClout);
                 databaseUser = documentSnapshot.getString("username");
                 user.setText(databaseUser);
             }
