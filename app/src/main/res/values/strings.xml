@@ -28,5 +28,6 @@
     <string name="title_activity_leaderboard">Leaderboard</string>
     <string name="title_activity_teams">Teams</string>
     <string name="title_activity_create_challenge">Create Challenge</string>
+    <string name="title_activity_create_team">Create Team</string>
 
 </resources>

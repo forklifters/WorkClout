@@ -1,9 +1,14 @@
 package com.example.workclout;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,12 +48,19 @@ public class Settings extends AppCompatActivity
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch wifi, notifications;
-    private CheckBox nightmode;
+    private Switch wifi, notifications, nightmode;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
     private helperClass x =new helperClass();
+    public static final String SHARED_PREFS = "sharedPrefs";
+    private boolean switchOnOff1;
+    private boolean switchOnOff2;
+    private boolean switchOnOff3;
+
+    public static final String SWITCH1 = "switch1";
+    public static final String SWITCH2 = "switch2";
+    public static final String SWITCH3 = "switch3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,8 @@ public class Settings extends AppCompatActivity
         night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +99,29 @@ public class Settings extends AppCompatActivity
         notifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    x.set_notifications_on(true);
+                if(notifications.isChecked()) {
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    calendar.set(Calendar.HOUR_OF_DAY,17);
+                    calendar.set(Calendar.MINUTE,59);
+
+                    Intent intent = new Intent(getApplicationContext(), Notification_Reciever.class);
+                    PendingIntent pendingIntent= PendingIntent.getBroadcast(getApplicationContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+                    savedData();
+
                 }
                 else {
-                    x.set_notifications_on(false);
+                    savedData();
+
+
+
                 }
             }
         });
+
 
         wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -101,16 +131,18 @@ public class Settings extends AppCompatActivity
                     WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                     wifi.setWifiEnabled(false);
                     Toast.makeText(Settings.this, "Your wifi is on" , Toast.LENGTH_SHORT).show();
+                    savedData();
                 }
                 else
                 {
                     WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                     wifi.setWifiEnabled(true);
                     Toast.makeText(Settings.this, "Your wifi is off" , Toast.LENGTH_SHORT).show();
-
+                    savedData();
                 }
             }
         });
+
 
         nightmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -128,7 +160,8 @@ public class Settings extends AppCompatActivity
                 }
             }
         });
-
+        loadData();
+        updateViews();
 
         resetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,8 +312,14 @@ public class Settings extends AppCompatActivity
                 startActivity(challenges);
             }
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(Settings.this, Teams.class);
-            startActivity(teams);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Settings.this, CreateTeam.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Settings.this, Teams.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Settings.this, Settings.class);
             startActivity(settings);
@@ -301,7 +340,7 @@ public class Settings extends AppCompatActivity
     }
 
     public void setUpVariables() {
-        nightmode=(CheckBox) findViewById(R.id.sw_nightmode);
+        nightmode=(Switch) findViewById(R.id.sw_nightmode);
         wifi=(Switch)findViewById(R.id.wifi_ID);
         notifications=(Switch)findViewById(R.id.notifications_ID);
         resetPassWord = (Button) findViewById(R.id.ResetPassWordID);
@@ -343,6 +382,32 @@ public class Settings extends AppCompatActivity
         {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    public void savedData()
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean(SWITCH1, notifications.isChecked());
+        editor.putBoolean(SWITCH2, nightmode.isChecked());
+        editor.putBoolean(SWITCH3, wifi.isChecked());
+        editor.apply();
+
+        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+    }
+    public void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        switchOnOff1 = sharedPreferences.getBoolean(SWITCH1, false);
+        switchOnOff2 = sharedPreferences.getBoolean(SWITCH2, false);
+        switchOnOff3 = sharedPreferences.getBoolean(SWITCH3, false);
+    }
+
+    public void updateViews() {
+        notifications.setChecked(switchOnOff1);
+        nightmode.setChecked(switchOnOff2);
+        wifi.setChecked(switchOnOff3);
+
     }
 
 }

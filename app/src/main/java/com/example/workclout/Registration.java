@@ -93,6 +93,7 @@ public class Registration extends AppCompatActivity {
                     dataToAdd.put("age", null );
                     dataToAdd.put("height", null );
                     dataToAdd.put("weight", null );
+                    dataToAdd.put("clout", "0");
 
                      loginType = "athletes";
                     if (coachCheck.isChecked()) {

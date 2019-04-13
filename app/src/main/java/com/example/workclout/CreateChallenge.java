@@ -104,9 +104,10 @@ public class CreateChallenge extends AppCompatActivity
                 dataToAdd.put("description", challengeDescription);
                 dataToAdd.put("challengeID", challengeID);
                 dataToAdd.put("UID", UID);
-                dataToAdd.put("Activity 1",act1);
-                dataToAdd.put("Activity 2",act2);
-                dataToAdd.put("Activity 3",act3);
+                dataToAdd.put("Activity1",act1);
+                dataToAdd.put("Activity2",act2);
+                dataToAdd.put("Activity3",act3);
+                dataToAdd.put("Pepper","Pepper");
 
 
                 mFirestore.collection("challenges").document(challengeID).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -177,8 +178,14 @@ public class CreateChallenge extends AppCompatActivity
                 startActivity(challenges);
             }
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(CreateChallenge.this, Teams.class);
-            startActivity(teams);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(CreateChallenge.this, CreateTeam.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(CreateChallenge.this, Teams.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(CreateChallenge.this, Settings.class);
             startActivity(settings);

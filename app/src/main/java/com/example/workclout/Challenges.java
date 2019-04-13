@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -44,7 +47,35 @@ public class Challenges extends AppCompatActivity
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
 
+    private FirebaseFirestore firestore;
+    private CollectionReference challengesRef;
+    private String cTitle;
+    private String cDesc;
+
     private void initImageBitmaps(){
+
+        firestore = FirebaseFirestore.getInstance();
+        challengesRef = firestore.collection("challenges");
+
+
+        Query challengesQuery = challengesRef.whereEqualTo("pepper", "pepper");
+
+        challengesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document: task.getResult()){
+                        challengeObj challenges = document.toObject(challengeObj.class);
+                        cTitle = challenges.getTitle();
+                        cDesc = challenges.getDescription();
+                    }
+                }
+                else{
+                    Toast.makeText(Challenges.this, "Failed to get challenge deets", Toast.LENGTH_SHORT);
+                }
+            }
+        });
+
         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
         mNames.add("Dude chillin");
         mDescriptions.add("Stuff about challenge");
@@ -173,8 +204,14 @@ public class Challenges extends AppCompatActivity
                 startActivity(challenges);
             }
         } else if (id == R.id.nav_teams) {
-            Intent teams = new Intent(Challenges.this, Teams.class);
-            startActivity(teams);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Challenges.this, CreateTeam.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Challenges.this, Teams.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Challenges.this, Settings.class);
             startActivity(settings);
@@ -203,6 +240,112 @@ public class Challenges extends AppCompatActivity
         else
         {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    public class challengeObj{
+        private String UID;
+        private String challengeID;
+        private String description;
+        private int difficulty;
+        private int length;
+        private String title;
+        private String pepper;
+        private String Activity1;
+        private String Activity2;
+        private String Activity3;
+
+        public challengeObj(){
+            setActivity1("");
+            setActivity2("");
+            setActivity3("");
+            setUID("");
+            setDescription("");
+            setChallengeID("");
+            setDifficulty(0);
+            setLength(0);
+            setTitle("");
+            setPepper("");
+        }
+
+        public void setUID(String UID) {
+            this.UID = UID;
+        }
+
+        public void setChallengeID(String challengeID) {
+            this.challengeID = challengeID;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setDifficulty(int difficulty) {
+            this.difficulty = difficulty;
+        }
+
+        public void setLength(int length) {
+            this.length = length;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setPepper(String pepper) {
+            this.pepper = pepper;
+        }
+
+        public void setActivity1(String activity1) {
+            Activity1 = activity1;
+        }
+
+        public void setActivity2(String activity2) {
+            Activity2 = activity2;
+        }
+
+        public void setActivity3(String activity3) {
+            Activity3 = activity3;
+        }
+
+        public String getUID() {
+            return UID;
+        }
+
+        public String getChallengeID() {
+            return challengeID;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public int getDifficulty() {
+            return difficulty;
+        }
+
+        public int getLength() {
+            return length;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getPepper() {
+            return pepper;
+        }
+
+        public String getActivity1() {
+            return Activity1;
+        }
+
+        public String getActivity2() {
+            return Activity2;
+        }
+
+        public String getActivity3() {
+            return Activity3;
         }
     }
 }

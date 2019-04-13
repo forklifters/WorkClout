@@ -88,7 +88,7 @@ public class SetupProfile extends AppCompatActivity {
 
 
                 update();
-                Intent loginSuccess = new Intent(SetupProfile.this, Settings.class);
+                Intent loginSuccess = new Intent(SetupProfile.this, HomePage.class);
                 startActivity(loginSuccess);
 
 
