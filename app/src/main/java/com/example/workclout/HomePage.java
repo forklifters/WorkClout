@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +27,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,10 +36,10 @@ public class HomePage extends AppCompatActivity
     NotificationCompat.Builder notification;
     private static final int uniqueID = 68734;
 
-    private String UId, loginType, databaseAge;
+    private String UId, loginType, databaseAge, databaseUser;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
-    private TextView clout;
+    private TextView clout, user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,10 @@ public class HomePage extends AppCompatActivity
         night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Recycler things----------------------------------------------------
+        initImageBitmaps();
+        //-------------------------------------------------------------------
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +69,15 @@ public class HomePage extends AppCompatActivity
         setUPRef = firestoreoreupdate.collection(loginType).document(UId);
 
         clout = (TextView) findViewById(R.id.tv_cloutScore);
+        user = (TextView) findViewById(R.id.tv_user);
 
         setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 databaseAge = documentSnapshot.getString("age");
                 clout.setText("Clout: " + databaseAge);
+                databaseUser = documentSnapshot.getString("username");
+                user.setText(databaseUser);
             }
         });
 
@@ -122,8 +133,14 @@ public class HomePage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(HomePage.this, CreateChallenge.class);
-            startActivity(challenges);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(HomePage.this, CreateChallenge.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(HomePage.this, Challenges.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(HomePage.this, Teams.class);
             startActivity(teams);
@@ -157,5 +174,55 @@ public class HomePage extends AppCompatActivity
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+
+    //Recycler things------------------------------------
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    private void initImageBitmaps(){
+
+        mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
+        mNames.add("Dude chillin");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
+        mNames.add("Lady chillin");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
+        mNames.add("Pushup");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
+        mNames.add("Plank");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
+        mNames.add("Ropes");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
+        mNames.add("Running");
+        mDescriptions.add("Stuff about challenge");
+
+        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
+        mNames.add("Deadlift");
+        mDescriptions.add("Stuff about challenge");
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+    //---------------------------------------------------
 
 }

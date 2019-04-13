@@ -168,8 +168,14 @@ public class CreateChallenge extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(CreateChallenge.this, CreateChallenge.class);
-            startActivity(challenges);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(CreateChallenge.this, CreateChallenge.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(CreateChallenge.this, Challenges.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(CreateChallenge.this, Teams.class);
             startActivity(teams);

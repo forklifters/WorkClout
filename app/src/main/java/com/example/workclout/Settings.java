@@ -42,8 +42,7 @@ public class Settings extends AppCompatActivity
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch wifi, notifications;
-    private CheckBox nightmode;
+    private Switch wifi, notifications, nightmode;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
@@ -270,8 +269,14 @@ public class Settings extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(Settings.this, Challenges.class);
-            startActivity(challenges);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Settings.this, CreateChallenge.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Settings.this, Challenges.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(Settings.this, Teams.class);
             startActivity(teams);
@@ -295,7 +300,7 @@ public class Settings extends AppCompatActivity
     }
 
     public void setUpVariables() {
-        nightmode=(CheckBox) findViewById(R.id.sw_nightmode);
+        nightmode=(Switch) findViewById(R.id.sw_nightmode);
         wifi=(Switch)findViewById(R.id.wifi_ID);
         notifications=(Switch)findViewById(R.id.notifications_ID);
         resetPassWord = (Button) findViewById(R.id.ResetPassWordID);
