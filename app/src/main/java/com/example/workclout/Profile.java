@@ -190,8 +190,14 @@ public class Profile extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(Profile.this, Challenges.class);
-            startActivity(challenges);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Profile.this, CreateChallenge.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Profile.this, Challenges.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(Profile.this, Teams.class);
             startActivity(teams);

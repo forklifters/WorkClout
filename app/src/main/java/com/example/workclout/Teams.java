@@ -88,8 +88,14 @@ public class Teams extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            Intent challenges = new Intent(Teams.this, Challenges.class);
-            startActivity(challenges);
+            if(x.get_login_type() == "coaches") {
+                Intent challenges = new Intent(Teams.this, CreateChallenge.class);
+                startActivity(challenges);
+            }
+            else{
+                Intent challenges = new Intent(Teams.this, Challenges.class);
+                startActivity(challenges);
+            }
         } else if (id == R.id.nav_teams) {
             Intent teams = new Intent(Teams.this, Teams.class);
             startActivity(teams);

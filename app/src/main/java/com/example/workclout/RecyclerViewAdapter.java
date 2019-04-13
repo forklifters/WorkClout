@@ -23,12 +23,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<String> mDescriptions = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> descriptions) {
         mContext = context;
         mImageNames = imageNames;
         mImages = images;
+        mDescriptions = descriptions;
     }
     @NonNull
     @Override
@@ -45,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Glide.with(mContext).asBitmap().load(mImages.get(position)).into(holder.image);
 
         holder.imageName.setText(mImageNames.get(position));
+        holder.description.setText(mDescriptions.get(position));
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -64,13 +67,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image;
-        TextView imageName;
+        TextView imageName, description;
         RelativeLayout parentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             imageName = itemView.findViewById(R.id.image_name);
+            description = itemView.findViewById(R.id.challengeDescription);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
 
