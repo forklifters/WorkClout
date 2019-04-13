@@ -107,6 +107,7 @@ public class CreateChallenge extends AppCompatActivity
                 dataToAdd.put("Activity 1",act1);
                 dataToAdd.put("Activity 2",act2);
                 dataToAdd.put("Activity 3",act3);
+                dataToAdd.put("pepper", "pepper");
 
 
                 mFirestore.collection("challenges").document(challengeID).set(dataToAdd).addOnCompleteListener(new OnCompleteListener<Void>() {

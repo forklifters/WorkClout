@@ -25,12 +25,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mImages = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private Context mContext;
+    private ArrayList<String> mChallengeIDs = new ArrayList<>();
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> descriptions) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> descriptions, ArrayList<String> challengeIDs) {
         mContext = context;
         mImageNames = imageNames;
         mImages = images;
         mDescriptions = descriptions;
+        mChallengeIDs = challengeIDs;
     }
     @NonNull
     @Override

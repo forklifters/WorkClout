@@ -2,6 +2,7 @@ package com.example.workclout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -41,18 +43,21 @@ import java.util.Random;
 public class Challenges extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private helperClass x =new helperClass();
+    private helperClass x = new helperClass();
     //Recycler things------------------------------------
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<String> mChallengeIDs = new ArrayList<>();
 
     private FirebaseFirestore firestore;
     private CollectionReference challengesRef;
+    private DocumentReference challengeDocRef;
     private String cTitle;
     private String cDesc;
+    private String cID;
 
-    private void initImageBitmaps(){
+    private void initImageBitmaps() {
 
         firestore = FirebaseFirestore.getInstance();
         challengesRef = firestore.collection("challenges");
@@ -60,65 +65,40 @@ public class Challenges extends AppCompatActivity
 
         Query challengesQuery = challengesRef.whereEqualTo("pepper", "pepper");
 
-        challengesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        challengesQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document: task.getResult()){
-                        challengeObj challenges = document.toObject(challengeObj.class);
-                        cTitle = challenges.getTitle();
-                        cDesc = challenges.getDescription();
+            public void onSuccess(QuerySnapshot querySnapshot) {
+                for (DocumentSnapshot queryDocSnapshot : querySnapshot.getDocuments()) {
+
+                    if (queryDocSnapshot.exists()) {
+                        cTitle = queryDocSnapshot.getString("title");
+                        cDesc = queryDocSnapshot.getString("description");
+                        cID = queryDocSnapshot.getString("challengeID");
+                        mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
+                        mNames.add(cTitle);
+                        mDescriptions.add(cDesc);
+                        mChallengeIDs.add(cID);
+
+                    } else {
+                        Toast.makeText(Challenges.this, "Failed to get challenge deets", Toast.LENGTH_SHORT);
                     }
+
                 }
-                else{
-                    Toast.makeText(Challenges.this, "Failed to get challenge deets", Toast.LENGTH_SHORT);
-                }
+                initRecyclerView();
+
             }
         });
 
-        mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
-        mNames.add("Dude chillin");
-        mDescriptions.add("Stuff about challenge");
 
-        mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
-        mNames.add("Lady chillin");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
-        mNames.add("Pushup");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
-        mNames.add("Plank");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-        mNames.add("Ropes");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-        mNames.add("Ropes");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
-        mNames.add("Running");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
-        mNames.add("Deadlift");
-        mDescriptions.add("Stuff about challenge");
-
-        initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     //---------------------------------------------------
-
 
 
     @Override
@@ -195,11 +175,10 @@ public class Challenges extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_challenges) {
-            if(x.get_login_type() == "coaches") {
+            if (x.get_login_type() == "coaches") {
                 Intent challenges = new Intent(Challenges.this, CreateChallenge.class);
                 startActivity(challenges);
-            }
-            else{
+            } else {
                 Intent challenges = new Intent(Challenges.this, Challenges.class);
                 startActivity(challenges);
             }
@@ -225,121 +204,122 @@ public class Challenges extends AppCompatActivity
         return true;
     }
 
-    public void night_mode()
-    {
-        if(x.get_lights_on())
-        {
+    public void night_mode() {
+        if (x.get_lights_on()) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        else
-        {
+        } else {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 
-    public class challengeObj{
-        private String UID;
-        private String challengeID;
-        private String description;
-        private int difficulty;
-        private int length;
-        private String title;
-        private String pepper;
-        private String Activity1;
-        private String Activity2;
-        private String Activity3;
 
-        public challengeObj(){
-            setActivity1("");
-            setActivity2("");
-            setActivity3("");
-            setUID("");
-            setDescription("");
-            setChallengeID("");
-            setDifficulty(0);
-            setLength(0);
-            setTitle("");
-            setPepper("");
-        }
-
-        public void setUID(String UID) {
-            this.UID = UID;
-        }
-
-        public void setChallengeID(String challengeID) {
-            this.challengeID = challengeID;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public void setDifficulty(int difficulty) {
-            this.difficulty = difficulty;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setPepper(String pepper) {
-            this.pepper = pepper;
-        }
-
-        public void setActivity1(String activity1) {
-            Activity1 = activity1;
-        }
-
-        public void setActivity2(String activity2) {
-            Activity2 = activity2;
-        }
-
-        public void setActivity3(String activity3) {
-            Activity3 = activity3;
-        }
-
-        public String getUID() {
-            return UID;
-        }
-
-        public String getChallengeID() {
-            return challengeID;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public int getDifficulty() {
-            return difficulty;
-        }
-
-        public int getLength() {
-            return length;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getPepper() {
-            return pepper;
-        }
-
-        public String getActivity1() {
-            return Activity1;
-        }
-
-        public String getActivity2() {
-            return Activity2;
-        }
-
-        public String getActivity3() {
-            return Activity3;
-        }
-    }
+//        public challengeObj(String title, int difficulty, int length,
+//                            String description, String challengeID,
+//                            String UID, String activity1, String activity2,
+//                            String activity3, String pepper) {
+//            this.title = title;
+//            this.difficulty = difficulty;
+//            this.length = length;
+//            this.description = description;
+//            this.challengeID = challengeID;
+//            this.UID = UID;
+//            Activity1 = activity1;
+//            Activity2 = activity2;
+//            Activity3 = activity3;
+//            this.pepper = pepper;
+//        }
+//
+//        public challengeObj(){
+//            setActivity1("");
+//            setActivity2("");
+//            setActivity3("");
+//            setUID("");
+//            setDescription("");
+//            setChallengeID("");
+//            setDifficulty(0);
+//            setLength(0);
+//            setTitle("");
+//            setPepper("");
+//        }
+//
+//        public void setUID(String UID) {
+//            this.UID = UID;
+//        }
+//
+//        public void setChallengeID(String challengeID) {
+//            this.challengeID = challengeID;
+//        }
+//
+//        public void setDescription(String description) {
+//            this.description = description;
+//        }
+//
+//        public void setDifficulty(int difficulty) {
+//            this.difficulty = difficulty;
+//        }
+//
+//        public void setLength(int length) {
+//            this.length = length;
+//        }
+//
+//        public void setTitle(String title) {
+//            this.title = title;
+//        }
+//
+//        public void setPepper(String pepper) {
+//            this.pepper = pepper;
+//        }
+//
+//        public void setActivity1(String activity1) {
+//            Activity1 = activity1;
+//        }
+//
+//        public void setActivity2(String activity2) {
+//            Activity2 = activity2;
+//        }
+//
+//        public void setActivity3(String activity3) {
+//            Activity3 = activity3;
+//        }
+//
+//        public String getUID() {
+//            return UID;
+//        }
+//
+//        public String getChallengeID() {
+//            return challengeID;
+//        }
+//
+//        public String getDescription() {
+//            return description;
+//        }
+//
+//        public int getDifficulty() {
+//            return difficulty;
+//        }
+//
+//        public int getLength() {
+//            return length;
+//        }
+//
+//        public String getTitle() {
+//            return title;
+//        }
+//
+//        public String getPepper() {
+//            return pepper;
+//        }
+//
+//        public String getActivity1() {
+//            return Activity1;
+//        }
+//
+//        public String getActivity2() {
+//            return Activity2;
+//        }
+//
+//        public String getActivity3() {
+//            return Activity3;
+//        }
+//    }
 }
