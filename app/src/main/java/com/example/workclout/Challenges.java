@@ -45,7 +45,6 @@ public class Challenges extends AppCompatActivity
     private ArrayList<String> mDescriptions = new ArrayList<>();
 
     private void initImageBitmaps(){
-
         mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
         mNames.add("Dude chillin");
         mDescriptions.add("Stuff about challenge");
