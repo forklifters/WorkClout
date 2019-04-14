@@ -50,21 +50,150 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_avatar"
         app:layout_constraintVertical_bias="0.006" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:layout_marginStart="8dp"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="383dp"
+        android:layout_height="383dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cloutScore"
-        app:layout_constraintVertical_bias="0.056">
+        app:layout_constraintTop_toBottomOf="@+id/tv_cloutScore">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_challenge1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Challenge 1" />
+
+            <TextView
+                android:id="@+id/tv_activity1_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 1" />
+
+            <TextView
+                android:id="@+id/tv_activity1_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 2" />
+
+            <TextView
+                android:id="@+id/tv_activity1_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 3" />
+
+            <ProgressBar
+                android:id="@+id/pb_challenge1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="120"/>
+
+            <Button
+                android:id="@+id/btn_challenge1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity finished" />
+
+            <TextView
+                android:id="@+id/tv_challenge2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Challenge 2" />
+
+            <TextView
+                android:id="@+id/tv_activity2_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 1" />
+
+            <TextView
+                android:id="@+id/tv_activity2_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 2" />
+
+            <TextView
+                android:id="@+id/tv_activity2_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 3" />
+
+            <ProgressBar
+                android:id="@+id/pb_challenge2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="120" />
+
+            <Button
+                android:id="@+id/btn_challenge2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity finished" />
+
+            <TextView
+                android:id="@+id/tv_challenge3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Challenge 3" />
+
+            <TextView
+                android:id="@+id/tv_activity3_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 1" />
+
+            <TextView
+                android:id="@+id/tv_activity3_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 2" />
+
+            <TextView
+                android:id="@+id/tv_activity3_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity 3" />
+
+            <ProgressBar
+                android:id="@+id/pb_challenge3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="120" />
+
+            <Button
+                android:id="@+id/btn_challenge3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity finished" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recycler_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="420dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="100dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_cloutScore"-->
+        <!--app:layout_constraintVertical_bias="0.056">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
 
 </android.support.constraint.ConstraintLayout>
