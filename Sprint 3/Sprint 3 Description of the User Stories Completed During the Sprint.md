@@ -2,7 +2,7 @@
 
 When an account is in the settings page, the user has the option to switch on notifications. When they switch the notification on, they will be continuously notified at 8 AM to do their challenges. Following SOA protocols, the notification switch does not change any of the other settings app. It also does not affect the information stored for the user. This setting must be changed specifically from the settings page as this is the only way to access this setting. It has a discrete unit of functionality that is to have the setting send notifications and continue to unless otherwise specified. 
 
-**Verifying email address**
+**Verifying email address (Athlete/Coach)**
 
 When an account is first registering, they will be sent to a verify page. This page has a place for user entry as well as two buttons. One of the buttons labeled "Send code" will allow the user to log in to an email account. When they do so, they will have a composed email that has a verification code. The user then can copy the verification code and put it in the user input section. They will then click the next button which is the verify button. If the code matches, the user will be verified and sent to the profile page in the app. The user will not be permitted if the code is not correct, and there is no way to generate the code without the email address. The only functionality of the page is to verify the account. 
 
@@ -25,5 +25,3 @@ When in the leaderboard page the user can show the team leaderboard. When doing 
 **Checking the individual leaderboard (Athlete/Coach)**
 
 When in the leaderboard page the user can show the individual leaderboard. When doing so, the user can see the current “clout” score of themselves and where they rank in terms of all of the cumulative “clout” they have gained. The page will display a ranking of the individual’s cumulative “clout” alongside other users. following SOA protocols, the user has no ability to change any of the values for themselves or any other user that is shown in the page. Additionally, the page only has the ability to display the cumulative scores and where the individual user ranks among them.
-
-
