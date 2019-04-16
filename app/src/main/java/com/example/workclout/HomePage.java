@@ -38,7 +38,8 @@ public class HomePage extends AppCompatActivity
     NotificationCompat.Builder notification;
     private static final int uniqueID = 68734;
 
-    private String UId, loginType, databaseUser, databaseClout;
+    private String UId, loginType, databaseUser, databaseCh1, databaseCh2, databaseCh3;
+    private Double databaseClout;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private TextView clout, user;
@@ -121,15 +122,15 @@ public class HomePage extends AppCompatActivity
         setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                databaseClout = documentSnapshot.getString("clout");
+                databaseClout = documentSnapshot.getDouble("clout");
                 clout.setText("Clout: " + databaseClout);
                 databaseUser = documentSnapshot.getString("username");
                 user.setText(databaseUser);
 
                 //Set challenge and activity names----------------------------------------------
-                String databaseCh1 = documentSnapshot.getString("challenge1");
-                String databaseCh2 = documentSnapshot.getString("challenge2");
-                String databaseCh3 = documentSnapshot.getString("challenge3");
+                databaseCh1 = documentSnapshot.getString("challenge1");
+                databaseCh2 = documentSnapshot.getString("challenge2");
+                databaseCh3 = documentSnapshot.getString("challenge3");
                 tv_ch1.setText(databaseCh1);
                 tv_ch2.setText(databaseCh2);
                 tv_ch3.setText(databaseCh3);
