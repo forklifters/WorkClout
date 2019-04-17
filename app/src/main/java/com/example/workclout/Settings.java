@@ -103,8 +103,8 @@ public class Settings extends AppCompatActivity
 
                     Calendar calendar = Calendar.getInstance();
 
-                    calendar.set(Calendar.HOUR_OF_DAY,17);
-                    calendar.set(Calendar.MINUTE,59);
+                    calendar.set(Calendar.HOUR_OF_DAY,10);
+                    calendar.set(Calendar.MINUTE,24);
 
                     Intent intent = new Intent(getApplicationContext(), Notification_Reciever.class);
                     PendingIntent pendingIntent= PendingIntent.getBroadcast(getApplicationContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);

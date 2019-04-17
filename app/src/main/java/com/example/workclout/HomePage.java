@@ -75,7 +75,7 @@ public class HomePage extends AppCompatActivity
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 databaseClout = documentSnapshot.getString("clout");
-                clout.setText("Clout: " + databaseClout);
+                clout.setText("Clout: " + Double.parseDouble(databaseClout));
                 databaseUser = documentSnapshot.getString("username");
                 user.setText(databaseUser);
             }

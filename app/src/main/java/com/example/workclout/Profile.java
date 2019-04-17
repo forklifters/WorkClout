@@ -77,10 +77,10 @@ public class Profile extends AppCompatActivity
         {
             fullName.setHint("Full Name");
             bio.setHint("Bio");
-            gender.setHint("gender");
-            age.setHint("age");
-            height.setHint("height in ft" );
-            weight.setHint("weight in lbs" );
+            gender.setHint("Gender");
+            age.setHint("Age");
+            height.setHint("Height in ft" );
+            weight.setHint("Weight in lbs" );
 
         }
         else {
