@@ -94,6 +94,9 @@ public class Registration extends AppCompatActivity {
                     dataToAdd.put("height", null );
                     dataToAdd.put("weight", null );
                     dataToAdd.put("clout", "0");
+                    dataToAdd.put("challenge1", "");
+                    dataToAdd.put("challenge2", "");
+                    dataToAdd.put("challenge3", "");
 
                      loginType = "athletes";
                     if (coachCheck.isChecked()) {

@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,10 +38,15 @@ public class HomePage extends AppCompatActivity
     NotificationCompat.Builder notification;
     private static final int uniqueID = 68734;
 
-    private String UId, loginType, databaseUser, databaseClout;
+    private String UId, loginType, databaseUser, databaseCh1, databaseCh2, databaseCh3;
+    private Double databaseClout;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private TextView clout, user;
+    private ProgressBar challenge1, challenge2, challenge3;
+    private TextView tv_ch1, tv_ch2, tv_ch3, tv_act1_1, tv_act1_2, tv_act1_3, tv_act2_1, tv_act2_2, tv_act2_3,
+            tv_act3_1, tv_act3_2, tv_act3_3;
+    private Button btn_ch1, btn_ch2, btn_ch3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +58,50 @@ public class HomePage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Recycler things----------------------------------------------------
-        initImageBitmaps();
-        //-------------------------------------------------------------------
+        //SetupVars---------------------------------------------------------------------
+        tv_ch1 = (TextView) findViewById(R.id.tv_challenge1);
+        tv_ch2 = (TextView) findViewById(R.id.tv_challenge2);
+        tv_ch3 = (TextView) findViewById(R.id.tv_challenge3);
+        tv_act1_1 = (TextView) findViewById(R.id.tv_activity1_1);
+        tv_act1_2 = (TextView) findViewById(R.id.tv_activity1_2);
+        tv_act1_3 = (TextView) findViewById(R.id.tv_activity1_3);
+        tv_act2_1 = (TextView) findViewById(R.id.tv_activity2_1);
+        tv_act2_2 = (TextView) findViewById(R.id.tv_activity2_2);
+        tv_act2_3 = (TextView) findViewById(R.id.tv_activity2_3);
+        tv_act3_1 = (TextView) findViewById(R.id.tv_activity3_1);
+        tv_act3_2 = (TextView) findViewById(R.id.tv_activity3_2);
+        tv_act3_3 = (TextView) findViewById(R.id.tv_activity3_3);
+        btn_ch1 = (Button) findViewById(R.id.btn_challenge1);
+        btn_ch2 = (Button) findViewById(R.id.btn_challenge2);
+        btn_ch3 = (Button) findViewById(R.id.btn_challenge3);
+        challenge1 = (ProgressBar) findViewById(R.id.pb_challenge1);
+        challenge2 = (ProgressBar) findViewById(R.id.pb_challenge2);
+        challenge3 = (ProgressBar) findViewById(R.id.pb_challenge3);
+        //------------------------------------------------------------------------------
+
+        //Increment progress bars-------------------------------------------------------
+        btn_ch1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge1.incrementProgressBy(40);
+            }
+        });
+
+
+        btn_ch2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge2.incrementProgressBy(40);
+            }
+        });
+
+        btn_ch3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge3.incrementProgressBy(40);
+            }
+        });
+        //------------------------------------------------------------------------------
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +122,20 @@ public class HomePage extends AppCompatActivity
         setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                databaseClout = documentSnapshot.getString("clout");
-                clout.setText("Clout: " + Double.parseDouble(databaseClout));
+                databaseClout = documentSnapshot.getDouble("clout");
+                clout.setText("Clout: " + databaseClout);
                 databaseUser = documentSnapshot.getString("username");
                 user.setText(databaseUser);
+
+                //Set challenge and activity names----------------------------------------------
+                databaseCh1 = documentSnapshot.getString("challenge1");
+                databaseCh2 = documentSnapshot.getString("challenge2");
+                databaseCh3 = documentSnapshot.getString("challenge3");
+                tv_ch1.setText(databaseCh1);
+                tv_ch2.setText(databaseCh2);
+                tv_ch3.setText(databaseCh3);
+                //TODO: Set the activity names
+                //------------------------------------------------------------------------------
             }
         });
 
@@ -180,56 +238,5 @@ public class HomePage extends AppCompatActivity
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-
-    //Recycler things------------------------------------
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
-    private ArrayList<String> mChallengeIDs = new ArrayList<>();
-
-    private void initImageBitmaps(){
-
-        mImageUrls.add("https://www.mensjournal.com/wp-content/uploads/mf/man_workout_resting_get_rid_of_chin_fat_main_0.jpg?w=1200");
-        mNames.add("Dude chillin");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://hungryrunnergirl.com/wp-content/uploads/2016/04/workouts.jpg");
-        mNames.add("Lady chillin");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://cdn1.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/03/home-dumbbell-workout-plan.jpg?itok=2rSFbB9H&timestamp=1520599000");
-        mNames.add("Pushup");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://images.askmen.com/1080x540/2018/03/08-044252-the_date_night_workout.jpg");
-        mNames.add("Plank");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-        mNames.add("Ropes");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.shape.com/sites/shape.com/files/how-to-build-circuit-workout-_0.jpg");
-        mNames.add("Ropes");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://www.rd.com/wp-content/uploads/2017/01/01-same-reasons-hit-workout-plateau-500886685-ferrantraite.jpg");
-        mNames.add("Running");
-        mDescriptions.add("Stuff about challenge");
-
-        mImageUrls.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/body-building-workout-royalty-free-image-612262390-1535040444.jpg?resize=480:*");
-        mNames.add("Deadlift");
-        mDescriptions.add("Stuff about challenge");
-
-        initRecyclerView();
-    }
-
-    private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mDescriptions, mChallengeIDs);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-    //---------------------------------------------------
 
 }
