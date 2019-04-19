@@ -48,7 +48,7 @@ public class Settings extends AppCompatActivity
     private String databaseBio, databaseName, databaseAge, databasePassword, databaseHeight, databaseWeight, databaseGender;
     private EditText resetPassWordInput, resetEmailInput;
     private Button resetPassWord, deleteAccount, resetEmail;
-    private Switch wifi, notifications, nightmode;
+    private Switch wifi, notifications, nightmode, privacy;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
     private DocumentReference setUPRef2;
@@ -69,8 +69,6 @@ public class Settings extends AppCompatActivity
         night_mode();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +158,22 @@ public class Settings extends AppCompatActivity
                 }
             }
         });
+
+        privacy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    x.set_privacy_on(true);
+
+                }
+                else
+                {
+                    x.set_privacy_on(false);
+                }
+            }
+        });
+
         loadData();
         updateViews();
 
@@ -348,6 +362,7 @@ public class Settings extends AppCompatActivity
         deleteAccount = (Button) findViewById(R.id.DeleteID);
         resetPassWordInput = (EditText) findViewById(R.id.resetPassWordInfo);
         resetEmailInput = (EditText) findViewById(R.id.resetEmailInfo);
+        privacy=(Switch) findViewById(R.id.privacy);
     }
 
     public void deleteAccount() {

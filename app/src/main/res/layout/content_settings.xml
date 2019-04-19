@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="108dp"
         android:background="@drawable/btn_bg_main"
         android:text="Delete Account"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,13 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/et_bg_main"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        android:background="@drawable/et_bg_main"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:hint="New Password"
         app:layout_constraintBottom_toTopOf="@+id/DeleteID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,16 +87,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:text="Nightmode"
         app:layout_constraintBottom_toTopOf="@+id/wifi_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
         android:id="@+id/wifi_ID"
@@ -104,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="28dp"
         android:text="Wifi"
         app:layout_constraintBottom_toTopOf="@+id/notifications_ID"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,5 +119,19 @@
         app:layout_constraintBottom_toTopOf="@+id/ResetEmailID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Private"
+        app:layout_constraintBottom_toTopOf="@+id/sw_nightmode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.802" />
 
 </android.support.constraint.ConstraintLayout>

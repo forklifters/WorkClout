@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class HomePage extends AppCompatActivity
     NotificationCompat.Builder notification;
     private static final int uniqueID = 68734;
 
-    private String UId, loginType, databaseUser, databaseCh1, databaseCh2, databaseCh3;
+    private String UId, loginType, databaseUser, databaseCh1, databaseCh2, databaseCh3, imageURL;
     private Double databaseClout;
     private FirebaseFirestore firestoreoreupdate;
     private DocumentReference setUPRef;
@@ -48,6 +49,7 @@ public class HomePage extends AppCompatActivity
     private TextView tv_ch1, tv_ch2, tv_ch3, tv_act1_1, tv_act1_2, tv_act1_3, tv_act2_1, tv_act2_2, tv_act2_3,
             tv_act3_1, tv_act3_2, tv_act3_3;
     private Button btn_ch1, btn_ch2, btn_ch3;
+    private ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class HomePage extends AppCompatActivity
         challenge1 = (ProgressBar) findViewById(R.id.pb_challenge1);
         challenge2 = (ProgressBar) findViewById(R.id.pb_challenge2);
         challenge3 = (ProgressBar) findViewById(R.id.pb_challenge3);
+
+        avatar = (ImageView) findViewById(R.id.iv_avatar);
 
         UId =x.get_user_id();
         loginType=x.get_login_type();

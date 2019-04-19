@@ -9,6 +9,7 @@ public class helperClass
     public static int verification;
     public static boolean turn_on;
     public static boolean notification;
+    public static boolean privacy;
     public static String email;
 
     public void setEmail(String email) {
@@ -55,6 +56,14 @@ public class helperClass
     public boolean get_lights_on()
     {
         return turn_on;
+    }
+    public void set_privacy_on(boolean values)
+    {
+        privacy=values;
+    }
+    public boolean get_privacy_on()
+    {
+        return privacy;
     }
     public void set_verification(int x) { verification=x; }
     public int get_verification() { return verification;}
