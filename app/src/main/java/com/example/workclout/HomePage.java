@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,40 +78,6 @@ public class HomePage extends AppCompatActivity
         challenge1 = (ProgressBar) findViewById(R.id.pb_challenge1);
         challenge2 = (ProgressBar) findViewById(R.id.pb_challenge2);
         challenge3 = (ProgressBar) findViewById(R.id.pb_challenge3);
-        //------------------------------------------------------------------------------
-
-        //Increment progress bars-------------------------------------------------------
-        btn_ch1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                challenge1.incrementProgressBy(40);
-            }
-        });
-
-
-        btn_ch2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                challenge2.incrementProgressBy(40);
-            }
-        });
-
-        btn_ch3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                challenge3.incrementProgressBy(40);
-            }
-        });
-        //------------------------------------------------------------------------------
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         UId =x.get_user_id();
         loginType=x.get_login_type();
@@ -118,6 +85,7 @@ public class HomePage extends AppCompatActivity
 
         clout = (TextView) findViewById(R.id.tv_cloutScore);
         user = (TextView) findViewById(R.id.tv_user);
+        //------------------------------------------------------------------------------
 
         setUPRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -138,6 +106,52 @@ public class HomePage extends AppCompatActivity
                 //------------------------------------------------------------------------------
             }
         });
+
+        //Increment progress bars-------------------------------------------------------
+        btn_ch1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge1.incrementProgressBy(40);
+                if(challenge1.getProgress() == 120){
+                    databaseClout = databaseClout + 20;
+                    update();
+                }
+            }
+        });
+
+
+        btn_ch2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge2.incrementProgressBy(40);
+                if(challenge2.getProgress() == 120){
+                    databaseClout = databaseClout + 20;
+                    update();
+                }
+            }
+        });
+
+        btn_ch3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                challenge3.incrementProgressBy(40);
+                if(challenge3.getProgress() >= 120){
+                    databaseClout = databaseClout + 20;
+                    update();
+                }
+            }
+        });
+        //------------------------------------------------------------------------------
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -237,6 +251,12 @@ public class HomePage extends AppCompatActivity
         {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    public void update() {
+        setUPRef.update("clout", databaseClout);
+        Toast.makeText(HomePage.this, "Clout increased!",Toast.LENGTH_SHORT).show();
+        clout.setText("Clout: " + databaseClout);
     }
 
 }
